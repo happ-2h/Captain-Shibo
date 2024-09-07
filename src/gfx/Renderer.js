@@ -1,3 +1,5 @@
+import { GAME_SCALE } from "../game/constants";
+
 let instance = null;
 
 class _Renderer {
@@ -48,6 +50,37 @@ class _Renderer {
   text(text="SAMPLE", x=0, y=0, color="black") {
     this.#ctx.fillStyle = color;
     this.#ctx.fillText(text, x, y);
+  }
+
+  // Vector functions
+  /**
+   * @brief Draws a rectangle\
+   *        Uses Vec2D for positioning and dimension
+   *
+   * @param {Vec2D} pos      - Vector to use for the position
+   * @param {Vec2D} dim      - Vector to use as dimension (width, height)
+   * @param {String} color   - Color of the rectangle
+   * @param {Boolean} filled - True fills rectange; stroked (default) otherwise
+   */
+  vrect(pos=null, dim=null, color="red", filled=false) {
+    if (filled) {
+      this.#ctx.fillStyle = color;
+      this.#ctx.fillRect(
+        Math.floor(pos.x * GAME_SCALE),
+        Math.floor(pos.y * GAME_SCALE),
+        dim.x * GAME_SCALE,
+        dim.y * GAME_SCALE
+      );
+    }
+    else {
+      this.#ctx.strokeStyle = color;
+      this.#ctx.strokeRect(
+        Math.floor(pos.x * GAME_SCALE),
+        Math.floor(pos.y * GAME_SCALE),
+        dim.x * GAME_SCALE,
+        dim.y * GAME_SCALE
+      );
+    }
   }
 };
 
