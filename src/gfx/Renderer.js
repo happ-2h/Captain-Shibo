@@ -5,7 +5,11 @@ class _Renderer {
   #ctx; // Drawing context reference
 
   constructor() {
+    if (instance) throw new Error("Renderer singleton reconstructed");
+
     this.#ctx = null;
+
+    instance = this;
   }
 
   init(context2d) {
