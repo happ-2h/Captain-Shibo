@@ -1,7 +1,16 @@
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
+
 export default class Game {
+  #cnv;  // HTML canvas reference
   #last; // Holds the previous RAF timestamp
 
   constructor() {
+    // Init canvas properties
+    this.#cnv = document.querySelector("canvas");
+    this.#cnv.width  = WINDOW_WIDTH;
+    this.#cnv.height = WINDOW_HEIGHT;
+    this.#cnv.autofocus = true;
+
     this.#last = 0;
 
     this.init();
