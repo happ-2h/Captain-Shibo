@@ -1,3 +1,4 @@
+import Renderer from "../gfx/Renderer";
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
 
 export default class Game {
@@ -17,6 +18,8 @@ export default class Game {
   }
 
   init() {
+    Renderer.init(this.#cnv.getContext("2d"));
+
     this.#last = performance.now();
     this.update(this.#last);
   }
@@ -30,5 +33,9 @@ export default class Game {
     this.render(dt);
   }
 
-  render(dt) {}
+  render(dt) {
+    Renderer.clear(this.#cnv.width, this.#cnv.height);
+
+    Renderer.text(1/dt, 32, 32);
+  }
 };
