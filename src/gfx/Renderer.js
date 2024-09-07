@@ -1,4 +1,4 @@
-import { GAME_SCALE } from "../game/constants";
+import { GAME_SCALE, TILE_SIZE } from "../game/constants";
 
 let instance = null;
 
@@ -52,6 +52,37 @@ class _Renderer {
     this.#ctx.fillText(text, x, y);
   }
 
+  /**
+   * @brief Draws a rectangle
+   *
+   * @param {Number} x       - x-position
+   * @param {Number} y       - y-position
+   * @param {Number} width   - Width of the rectangle
+   * @param {Number} height  - Height of the rectangle
+   * @param {String} color   - Color of the rectangle
+   * @param {Boolean} filled - True fills rectange; stroked (default) otherwise
+   */
+  rect(x=0, y=0, width=TILE_SIZE, height=TILE_SIZE, color="red", filled=false) {
+    if (filled) {
+      this.#ctx.fillStyle = color;
+      this.#ctx.fillRect(
+        Math.floor(x * GAME_SCALE),
+        Math.floor(y * GAME_SCALE),
+        width  * GAME_SCALE,
+        height * GAME_SCALE
+      );
+    }
+    else {
+      this.#ctx.strokeStyle = color;
+      this.#ctx.strokeRect(
+        Math.floor(x * GAME_SCALE),
+        Math.floor(y * GAME_SCALE),
+        width  * GAME_SCALE,
+        height * GAME_SCALE
+      );
+    }
+  }
+
   // Vector functions
   /**
    * @brief Draws a rectangle\
@@ -80,6 +111,30 @@ class _Renderer {
         dim.x * GAME_SCALE,
         dim.y * GAME_SCALE
       );
+    }
+  }
+
+  // Utils
+  /**
+   * @brief Draws a grid on the canvas\
+   *        Useful for tile placement
+   *
+   * @param {Number} width  - Number of cells to draw
+   * @param {Number} height - Number of cells to draw
+   * @param {String} color  - Color of the cells
+   */
+  drawGrid(width, height, color="black") {
+    this.#ctx.strokeStyle = color;
+
+    for (let i = 0; i < width; ++i) {
+      for (let j = 0; j < height; ++j) {
+        this.rect(
+          i * TILE_SIZE,
+          j * TILE_SIZE,
+          TILE_SIZE, TILE_SIZE,
+          color
+        );
+      }
     }
   }
 };
