@@ -1,5 +1,6 @@
 import Player from "../entity/mobile/player/Player";
 import Renderer from "../gfx/Renderer";
+import MapHandler from "../map/MapHandler";
 import AssetHandler from "../utils/AssetHandler";
 import { DEBUG, WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
 
@@ -21,10 +22,11 @@ export default class Game {
 
     // Poll assets
     AssetHandler.poll("spritesheet", "spritesheet.png");
+    AssetHandler.poll("test_map", "test_map.json");
 
     // If assets successfully loaded, start game loop
     AssetHandler.load()
-      .then(val => this.init())
+      .then(val  => this.init())
       .catch(err => console.error(err));
   }
 
@@ -50,6 +52,7 @@ export default class Game {
   render(dt) {
     Renderer.clear(this.#cnv.width, this.#cnv.height);
 
+    MapHandler.drawMap("test_map");
     this.player.draw();
 
     if (DEBUG) Renderer.text(1/dt, 32, 32);

@@ -85,6 +85,30 @@ class _Renderer {
     }
   }
 
+  /**
+   * @brief Draws a blit image
+   *
+   * @param {String} textureID - ID of the texture to blit
+   * @param {Number} sx - x-position of the image  (png file)
+   * @param {Number} sy - y-position of the image  (png file)
+   * @param {Number} sw - Width of the blit image  (png file)
+   * @param {Number} sh - Height of the blit image (png file)
+   * @param {Number} dx - x-position to draw at (canvas)
+   * @param {Number} dy - y-position to draw at (canvas)
+   * @param {Number} dw - Width of the image    (canvas)
+   * @param {Number} dh - Height of the image   (canvas)
+   */
+  image(textureID, sx=0, sy=0, sw=TILE_SIZE, sh=TILE_SIZE, dx=0, dy=0, dw=TILE_SIZE, dh=TILE_SIZE) {
+    this.#ctx.drawImage(
+      TextureHandler.getTexture(textureID),
+      sx, sy, sw, sh,
+      Math.floor(dx * GAME_SCALE),
+      Math.floor(dy * GAME_SCALE),
+      dw * GAME_SCALE,
+      dh * GAME_SCALE
+    );
+  }
+
   // Vector functions
   /**
    * @brief Draws a rectangle\
