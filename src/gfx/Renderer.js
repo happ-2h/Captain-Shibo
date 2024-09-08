@@ -1,4 +1,5 @@
 import { GAME_SCALE, TILE_SIZE } from "../game/constants";
+import Vec2D from "../math/Vec2D";
 import Rectangle from "../utils/Rectangle";
 import TextureHandler from "./TextureHandler";
 
@@ -6,12 +7,18 @@ let instance = null;
 
 class _Renderer {
   /**@type {CanvasRenderingContext2D} */
-  #ctx; // Drawing context reference
+  #ctx;     // Drawing context reference
+
+  #offset;  // Drawing offset
+  #epsilon; // Fixes float positioning glitches
 
   constructor() {
     if (instance) throw new Error("Renderer singleton reconstructed");
 
     this.#ctx = null;
+
+    this.#offset  = Vec2D.zero();
+    this.#epsilon = 0.01;
 
     instance = this;
   }
@@ -59,17 +66,17 @@ class _Renderer {
    *
    * @param {Number} x       - x-position
    * @param {Number} y       - y-position
-   * @param {Number} width   - Width of the rectangle
+   * @param {Number} width   - Width  of the rectangle
    * @param {Number} height  - Height of the rectangle
-   * @param {String} color   - Color of the rectangle
-   * @param {Boolean} filled - True fills rectange; stroked (default) otherwise
+   * @param {String} color   - Color  of the rectangle
+   * @param {Boolean} filled - True: filled rectangle; stroked (default) otherwise
    */
   rect(x=0, y=0, width=TILE_SIZE, height=TILE_SIZE, color="red", filled=false) {
     if (filled) {
       this.#ctx.fillStyle = color;
       this.#ctx.fillRect(
-        Math.floor(x * GAME_SCALE),
-        Math.floor(y * GAME_SCALE),
+        Math.floor((x - this.#offset.x + this.#epsilon) * GAME_SCALE),
+        Math.floor((y - this.#offset.y + this.#epsilon) * GAME_SCALE),
         width  * GAME_SCALE,
         height * GAME_SCALE
       );
@@ -77,8 +84,8 @@ class _Renderer {
     else {
       this.#ctx.strokeStyle = color;
       this.#ctx.strokeRect(
-        Math.floor(x * GAME_SCALE),
-        Math.floor(y * GAME_SCALE),
+        Math.floor((x - this.#offset.x + this.#epsilon) * GAME_SCALE),
+        Math.floor((y - this.#offset.y + this.#epsilon) * GAME_SCALE),
         width  * GAME_SCALE,
         height * GAME_SCALE
       );
@@ -95,15 +102,15 @@ class _Renderer {
    * @param {Number} sh - Height of the blit image (png file)
    * @param {Number} dx - x-position to draw at (canvas)
    * @param {Number} dy - y-position to draw at (canvas)
-   * @param {Number} dw - Width of the image    (canvas)
+   * @param {Number} dw - Width  of the image   (canvas)
    * @param {Number} dh - Height of the image   (canvas)
    */
   image(textureID, sx=0, sy=0, sw=TILE_SIZE, sh=TILE_SIZE, dx=0, dy=0, dw=TILE_SIZE, dh=TILE_SIZE) {
     this.#ctx.drawImage(
       TextureHandler.getTexture(textureID),
       sx, sy, sw, sh,
-      Math.floor(dx * GAME_SCALE),
-      Math.floor(dy * GAME_SCALE),
+      Math.floor((dx - this.#offset.x + this.#epsilon) * GAME_SCALE),
+      Math.floor((dy - this.#offset.y + this.#epsilon) * GAME_SCALE),
       dw * GAME_SCALE,
       dh * GAME_SCALE
     );
@@ -123,8 +130,8 @@ class _Renderer {
     if (filled) {
       this.#ctx.fillStyle = color;
       this.#ctx.fillRect(
-        Math.floor(pos.x * GAME_SCALE),
-        Math.floor(pos.y * GAME_SCALE),
+        Math.floor((pos.x - this.#offset.x + this.#epsilon) * GAME_SCALE),
+        Math.floor((pos.y - this.#offset.y + this.#epsilon) * GAME_SCALE),
         dim.x * GAME_SCALE,
         dim.y * GAME_SCALE
       );
@@ -132,8 +139,8 @@ class _Renderer {
     else {
       this.#ctx.strokeStyle = color;
       this.#ctx.strokeRect(
-        Math.floor(pos.x * GAME_SCALE),
-        Math.floor(pos.y * GAME_SCALE),
+        Math.floor((pos.x - this.#offset.x + this.#epsilon) * GAME_SCALE),
+        Math.floor((pos.y - this.#offset.y + this.#epsilon) * GAME_SCALE),
         dim.x * GAME_SCALE,
         dim.y * GAME_SCALE
       );
@@ -151,8 +158,8 @@ class _Renderer {
     this.#ctx.drawImage(
       TextureHandler.getTexture(textureID),
       src.pos.x, src.pos.y, src.dim.x, src.dim.y,
-      Math.floor(dst.pos.x * GAME_SCALE),
-      Math.floor(dst.pos.y * GAME_SCALE),
+      Math.floor((dst.pos.x - this.#offset.x + this.#epsilon) * GAME_SCALE),
+      Math.floor((dst.pos.y - this.#offset.y + this.#epsilon) * GAME_SCALE),
       dst.dim.x * GAME_SCALE,
       dst.dim.y * GAME_SCALE
     );
@@ -163,8 +170,8 @@ class _Renderer {
    * @brief Draws a grid on the canvas\
    *        Useful for tile placement
    *
-   * @param {Number} width  - Number of cells to draw
-   * @param {Number} height - Number of cells to draw
+   * @param {Number} width  - Number of cells to draw horizontally
+   * @param {Number} height - Number of cells to draw vertically
    * @param {String} color  - Color of the cells
    */
   drawGrid(width, height, color="black") {
@@ -181,6 +188,23 @@ class _Renderer {
       }
     }
   }
+
+  /**
+   * @brief Offsets all drawings. Commonly used with a camera
+   *
+   * @param {Number} x - Horizontal offset
+   * @param {Number} y - Vertical offset
+   */
+  setOffset(x, y) { this.#offset.set(x, y); }
+
+  /**
+   * @brief Sets the offsets to zero
+   */
+  resetOffset() { this.#offset.reset(); }
+
+  // Accessors
+  get offx() { return this.#offset.x; }
+  get offy() { return this.#offset.y; }
 };
 
 const Renderer = new _Renderer;

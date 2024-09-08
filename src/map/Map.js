@@ -29,8 +29,8 @@ export default class Map {
               (tileID&0xF)<<4,
               (tileID>>4)<<4,
               TILE_SIZE, TILE_SIZE,
-              Math.floor(x<<4),
-              Math.floor(y<<4),
+              x*TILE_SIZE,
+              y*TILE_SIZE,
               TILE_SIZE,
               TILE_SIZE
             );

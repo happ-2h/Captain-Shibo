@@ -1,3 +1,4 @@
+import Camera from "../camera/Camera";
 import Player from "../entity/mobile/player/Player";
 import Renderer from "../gfx/Renderer";
 import MapHandler from "../map/MapHandler";
@@ -19,6 +20,7 @@ export default class Game {
 
     // TEMP
     this.player = new Player;
+    this.cam = new Camera(this.player.dst.x, this.player.dst.y);
 
     // Poll assets
     AssetHandler.poll("spritesheet", "spritesheet.png");
@@ -45,6 +47,8 @@ export default class Game {
 
     // TEMP
     this.player.update(dt);
+    this.cam.vfocus(this.player.dst.pos);
+    this.cam.update(dt);
 
     this.render(dt);
   }
@@ -52,6 +56,7 @@ export default class Game {
   render(dt) {
     Renderer.clear(this.#cnv.width, this.#cnv.height);
 
+    Renderer.setOffset(this.cam.x, this.cam.y);
     MapHandler.drawMap("test_map");
     this.player.draw();
 
