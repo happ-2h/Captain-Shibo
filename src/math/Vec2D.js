@@ -349,6 +349,14 @@ export default class Vec2D {
   }
 
   /**
+   * @brief Sets the vector's properties to zero
+   */
+  reset() {
+    this.#x = 0;
+    this.#y = 0;
+  }
+
+  /**
    * @brief Creates a new vector with the same properties
    *
    * @returns New vector with the same properties of this one

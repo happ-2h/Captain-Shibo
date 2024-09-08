@@ -9,7 +9,7 @@ export default class Player extends Entity_Mob {
     // Image
     this.src.x = 16;
 
-    this.vel.set(50, 50);
+    this.vel.set(1, 1);
   }
 
   init() {}
@@ -44,18 +44,38 @@ export default class Player extends Entity_Mob {
 
   #handleMovement(dt) {
     // Finalize movement
-    if (this.dir.x ===  1 && this.targetTile.x > this.dst.x) this.dst.x += this.vel.x * dt;
-    if (this.dir.x === -1 && this.targetTile.x < this.dst.x) this.dst.x -= this.vel.x * dt;
-    if (this.dir.y ===  1 && this.targetTile.y > this.dst.y) this.dst.y += this.vel.y * dt;
-    if (this.dir.y === -1 && this.targetTile.y < this.dst.y) this.dst.y -= this.vel.y * dt;
+    if (this.targetTile.x > this.dst.x) this.dst.x += this.vel.x;
+    if (this.targetTile.x < this.dst.x) this.dst.x -= this.vel.x;
+    if (this.targetTile.y > this.dst.y) this.dst.y += this.vel.y;
+    if (this.targetTile.y < this.dst.y) this.dst.y -= this.vel.y;
 
+    /*
+     * [ISSUE #001]
+     * FIXME: time-based movement
+     *   Problems:
+     *     - Miniscule offsets (doesn't snap to grid)
+     *   Unsuccessful attempts:
+     *     - Forced snap has obvious jitter
+     * /
+    /*
     if (
       Math.floor(this.dst.x) === this.targetTile.x &&
       Math.floor(this.dst.y) === this.targetTile.y
     ) {
       this.isMoving = false;
+
+      this.dst.x = this.targetTile.x;
+      this.dst.y = this.targetTile.y;
+
       this.dir.x = 0;
       this.dir.y = 0;
+    }
+    */
+
+    // TEMP Frame-based movement
+    if (this.dst.pos.equals(this.targetTile)) {
+      this.isMoving = false;
+      this.dir.reset();
     }
   }
 };
