@@ -1,5 +1,6 @@
+import Player from "../entity/mobile/player/Player";
 import Renderer from "../gfx/Renderer";
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
+import { DEBUG, WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
 
 export default class Game {
   #cnv;  // HTML canvas reference
@@ -13,6 +14,9 @@ export default class Game {
     this.#cnv.autofocus = true;
 
     this.#last = 0;
+
+    // TEMP
+    this.player = new Player;
 
     this.init();
   }
@@ -30,12 +34,17 @@ export default class Game {
 
     requestAnimationFrame(this.update.bind(this));
 
+    // TEMP
+    this.player.update(dt);
+
     this.render(dt);
   }
 
   render(dt) {
     Renderer.clear(this.#cnv.width, this.#cnv.height);
 
-    Renderer.text(1/dt, 32, 32);
+    this.player.draw();
+
+    if (DEBUG) Renderer.text(1/dt, 32, 32);
   }
 };
