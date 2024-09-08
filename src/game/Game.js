@@ -1,5 +1,6 @@
 import Player from "../entity/mobile/player/Player";
 import Renderer from "../gfx/Renderer";
+import AssetHandler from "../utils/AssetHandler";
 import { DEBUG, WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
 
 export default class Game {
@@ -18,7 +19,13 @@ export default class Game {
     // TEMP
     this.player = new Player;
 
-    this.init();
+    // Poll assets
+    AssetHandler.poll("spritesheet", "spritesheet.png");
+
+    // If assets successfully loaded, start game loop
+    AssetHandler.load()
+      .then(val => this.init())
+      .catch(err => console.error(err));
   }
 
   init() {
