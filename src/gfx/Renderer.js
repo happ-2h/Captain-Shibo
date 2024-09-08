@@ -1,4 +1,6 @@
 import { GAME_SCALE, TILE_SIZE } from "../game/constants";
+import Rectangle from "../utils/Rectangle";
+import TextureHandler from "./TextureHandler";
 
 let instance = null;
 
@@ -112,6 +114,24 @@ class _Renderer {
         dim.y * GAME_SCALE
       );
     }
+  }
+
+  /**
+   * @brief Draws an image to the canvas
+   *
+   * @param {String} textureID - ID of texture
+   * @param {Rectangle} src    - Source rectangle (blit of image file)
+   * @param {Rectangle} dst    - Destination rectangle (HTML5 canvas)
+   */
+  vimage(textureID, src, dst) {
+    this.#ctx.drawImage(
+      TextureHandler.getTexture(textureID),
+      src.pos.x, src.pos.y, src.dim.x, src.dim.y,
+      Math.floor(dst.pos.x * GAME_SCALE),
+      Math.floor(dst.pos.y * GAME_SCALE),
+      dst.dim.x * GAME_SCALE,
+      dst.dim.y * GAME_SCALE
+    );
   }
 
   // Utils

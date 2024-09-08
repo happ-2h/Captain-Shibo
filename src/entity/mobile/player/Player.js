@@ -6,6 +6,9 @@ export default class Player extends Entity_Mob {
   constructor(x=0, y=0) {
     super(x, y, new PlayerController);
 
+    // Image
+    this.src.x = 16;
+
     this.vel.set(50, 50);
   }
 
