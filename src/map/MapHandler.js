@@ -1,3 +1,4 @@
+import Rectangle from "../utils/Rectangle";
 import Map from "./Map";
 
 let instance = null;
@@ -45,10 +46,11 @@ class _MapHandler {
   /**
    * @brief Draws a tile map
    *
-   * @param {String} mapID - ID of the map to draw
+   * @param {String} mapID   - ID of the map to draw
+   * @param {Rectangle} crop - Rectangle for cropping
    */
-  drawMap(mapID) {
-    this.#maps[mapID].draw();
+  drawMap(mapID, crop) {
+    this.#maps[mapID].draw(crop);
   }
 };
 

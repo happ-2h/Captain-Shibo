@@ -1,3 +1,4 @@
+import { TILE_SIZE } from "../game/constants.js";
 import Vec2D from "../math/Vec2D.js";
 
 export default class Rectangle {
@@ -10,7 +11,7 @@ export default class Rectangle {
    * @param {Number} width  - Width of the rectangle
    * @param {Number} height - Height of the rectangle
    */
-  constructor(x, y, width, height) {
+  constructor(x=0, y=0, width=TILE_SIZE, height=TILE_SIZE) {
     this.#pos = new Vec2D(x, y);
     this.#dim = new Vec2D(width, height);
   }

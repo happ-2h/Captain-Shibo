@@ -3,6 +3,7 @@ import Player from "../entity/mobile/player/Player";
 import Renderer from "../gfx/Renderer";
 import MapHandler from "../map/MapHandler";
 import AssetHandler from "../utils/AssetHandler";
+import Rectangle from "../utils/Rectangle";
 import { DEBUG, WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
 
 export default class Game {
@@ -57,7 +58,7 @@ export default class Game {
     Renderer.clear(this.#cnv.width, this.#cnv.height);
 
     Renderer.setOffset(this.cam.x, this.cam.y);
-    MapHandler.drawMap("test_map");
+    MapHandler.drawMap("test_map", new Rectangle(this.cam.x, this.cam.y, 21, 13));
     this.player.draw();
 
     if (DEBUG) Renderer.text(1/dt, 32, 32);

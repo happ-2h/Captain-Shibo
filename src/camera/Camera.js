@@ -47,6 +47,9 @@ export default class Camera {
     let dx = (this.#focalPt.x - this.#rect.w*(RES_SCALE>>1));
     let dy = (this.#focalPt.y - this.#rect.h*(RES_SCALE>>1));
 
+    if (dx < 0) dx = 0;
+    if (dy < 0) dy = 0;
+
     this.#rect.x = lerp(this.#rect.x, dx, this.#lerpSpeed);
     this.#rect.y = lerp(this.#rect.y, dy, this.#lerpSpeed);
   }

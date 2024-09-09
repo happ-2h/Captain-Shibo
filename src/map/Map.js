@@ -1,6 +1,7 @@
 import { TILE_SIZE } from "../game/constants";
 import Renderer from "../gfx/Renderer";
 import Vec2D from "../math/Vec2D";
+import Rectangle from "../utils/Rectangle";
 
 export default class Map {
   #dim;    // Dimensions (width, height)
@@ -17,10 +18,23 @@ export default class Map {
     this.#layers = [ ...data.layers ];
   }
 
-  draw() {
+  /**
+   * @brief Draws every layer of the map
+   *
+   * @param {Rectangle} crop - Rectangle for cropping
+   */
+  draw(crop) {
+    if (!crop) crop = new Rectangle(0, 0, 21, 13);
+
+    // Crop calculations
+    let cx = (crop.x>>4);
+    let cy = (crop.y>>4);
+    let cw = cx + crop.w;
+    let ch = cy + crop.h;
+
     for (let l = 0; l < this.#layers.length; ++l) {
-      for (let x = 0; x < this.#dim.x; ++x) {
-        for (let y = 0; y < this.#dim.y; ++y) {
+      for (let x = cx; x < cw; ++x) {
+        for (let y = cy; y < ch; ++y) {
           let tileID = this.getTile(x, y, l);
 
           if (tileID > 0) {
