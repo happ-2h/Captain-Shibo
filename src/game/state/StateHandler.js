@@ -1,3 +1,5 @@
+import State from "./State";
+
 let instance = null;
 
 class _StateHandler {

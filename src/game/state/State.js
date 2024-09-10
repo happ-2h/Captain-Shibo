@@ -1,5 +1,7 @@
 export default class State {
-  #gameobjects;
+  #gameobjects; // Gameobjects relative to the state
+  #camera;      // Camera relative to the state
+  #map;         // Map relative to the state
 
   constructor() {
     if (this.constructor === State)
@@ -18,7 +20,16 @@ export default class State {
       throw new Error("render() must be implemented");
 
     this.#gameobjects = [];
+    this.#camera = null;
+    this.#map = null;
   }
 
+  // Accessors
   get gameObjects() { return this.#gameobjects; }
+  get camera()      { return this.#camera; }
+  get map()         { return this.#map; }
+
+  // Mutators
+  set camera(cam) { this.#camera = cam; }
+  set map(map)    { this.#map = map; }
 };

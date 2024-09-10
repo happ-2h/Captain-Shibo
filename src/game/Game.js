@@ -1,10 +1,8 @@
-import Camera from "../camera/Camera";
-import Player from "../entity/mobile/player/Player";
 import Renderer from "../gfx/Renderer";
-import MapHandler from "../map/MapHandler";
 import AssetHandler from "../utils/AssetHandler";
-import Rectangle from "../utils/Rectangle";
 import { DEBUG, WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
+import GameState from "./state/GameState";
+import StateHandler from "./state/StateHandler";
 
 export default class Game {
   #cnv;  // HTML canvas reference
@@ -19,10 +17,6 @@ export default class Game {
 
     this.#last = 0;
 
-    // TEMP
-    this.player = new Player;
-    this.cam = new Camera(this.player.dst.x, this.player.dst.y);
-
     // Poll assets
     AssetHandler.poll("spritesheet", "spritesheet.png");
     AssetHandler.poll("test_map", "test_map.json");
@@ -34,6 +28,8 @@ export default class Game {
   }
 
   init() {
+    StateHandler.push(new GameState);
+
     Renderer.init(this.#cnv.getContext("2d"));
 
     this.#last = performance.now();
@@ -46,10 +42,7 @@ export default class Game {
 
     requestAnimationFrame(this.update.bind(this));
 
-    // TEMP
-    this.player.update(dt);
-    this.cam.vfocus(this.player.dst.pos);
-    this.cam.update(dt);
+    StateHandler.update(dt);
 
     this.render(dt);
   }
@@ -57,9 +50,7 @@ export default class Game {
   render(dt) {
     Renderer.clear(this.#cnv.width, this.#cnv.height);
 
-    Renderer.setOffset(this.cam.x, this.cam.y);
-    MapHandler.drawMap("test_map", new Rectangle(this.cam.x, this.cam.y, 21, 13));
-    this.player.draw();
+    StateHandler.render();
 
     if (DEBUG) Renderer.text(1/dt, 32, 32);
   }
