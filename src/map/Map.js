@@ -39,8 +39,10 @@ export default class Map {
 
           if (tileID > 0) {
             switch(tileID) {
-              case 1:
-              case 32:
+              case 1: // Player
+                this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
+                break;
+              case 32: // TEMP solid
                 this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
                 break;
             }

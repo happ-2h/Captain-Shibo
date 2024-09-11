@@ -2,6 +2,7 @@ import PlayerController from "../../../Controller/PlayerController";
 import { TILE_SIZE } from "../../../game/constants";
 import MapHandler from "../../../map/MapHandler";
 import Entity_Mob from "../Entity_Mob";
+import Animation from "../../../gfx/Animation";
 
 export default class Player extends Entity_Mob {
   constructor(x=0, y=0, map=null) {
@@ -9,6 +10,11 @@ export default class Player extends Entity_Mob {
 
     // Image
     this.src.x = 16;
+
+    // Animations
+    this.animation = new Animation([1,2,1,3], 10); // TEMP
+    this.shouldAnimate = true;
+    this.facing = "down";
 
     this.vel.set(1, 1);
   }
@@ -18,27 +24,32 @@ export default class Player extends Entity_Mob {
   update(dt) {
     this.#handleInput();
     this.#handleMovement(dt);
+    this.#handleAnimation(dt);
   }
 
   #handleInput() {
     if (!this.isMoving && this.controller.isRequestingLeft()) {
       this.targetTile.x -= TILE_SIZE;
       this.dir.x = -1;
+      this.facing = "left";
       this.isMoving = true;
     }
     else if (!this.isMoving && this.controller.isRequestingRight()) {
       this.targetTile.x += TILE_SIZE;
       this.dir.x = 1;
+      this.facing = "right";
       this.isMoving = true;
     }
     else if (!this.isMoving && this.controller.isRequestingUp()) {
       this.targetTile.y -= TILE_SIZE;
       this.dir.y = -1;
+      this.facing = "up";
       this.isMoving = true;
     }
     else if (!this.isMoving && this.controller.isRequestingDown()) {
       this.targetTile.y += TILE_SIZE;
       this.dir.y = 1;
+      this.facing = "down";
       this.isMoving = true;
     }
   }
@@ -93,5 +104,20 @@ export default class Player extends Entity_Mob {
       this.isMoving = false;
       this.dir.reset();
     }
+  }
+
+  #handleAnimation(dt) {
+    if (
+      this.controller.isRequestingUp()    ||
+      this.controller.isRequestingDown()  ||
+      this.controller.isRequestingLeft()  ||
+      this.controller.isRequestingRight() ||
+      !this.targetTile.equals(this.dst.pos)
+    )
+      this.animation.update(dt);
+    else this.animation.currentFrame = 0;
+
+    this.src.pos.x = (this.animation.currentFrame&0xF)<<4;
+    this.src.pos.y = (this.animation.currentFrame>>4)<<4;
   }
 };
