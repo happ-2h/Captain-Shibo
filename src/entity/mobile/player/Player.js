@@ -47,6 +47,13 @@ export default class Player extends Entity_Mob {
     // Handle collision
     const nextx = this.targetTile.x / TILE_SIZE;
     const nexty = this.targetTile.y / TILE_SIZE;
+
+    // - Map bounds
+    if (nextx < 0) this.targetTile.x = 0;
+    if (nexty < 0) this.targetTile.y = 0;
+    if (nextx >= MapHandler.getMap(this.map).width) this.targetTile.x = this.dst.x;
+    if (nexty >= MapHandler.getMap(this.map).height) this.targetTile.y = this.dst.y;
+
     if (MapHandler.getMap(this.map).getTileObject(nextx, nexty)?.isSolid) {
       this.targetTile.x = this.dst.x;
       this.targetTile.y = this.dst.y;

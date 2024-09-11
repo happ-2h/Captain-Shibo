@@ -41,7 +41,7 @@ export default class Map {
             switch(tileID) {
               case 1:
               case 32:
-                this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
+                this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
                 break;
             }
           }
@@ -169,7 +169,11 @@ export default class Map {
   getTileObject(x=0, y=0) {
     x |= 0;
     y |= 0;
-    return this.#tiles[y][x];
+
+    if (x >= 0 && x < this.#dim.x && y >= 0 && y < this.#dim.y)
+      return this.#tiles[y][x];
+
+    return null;
   }
 
   /**
