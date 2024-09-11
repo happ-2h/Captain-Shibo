@@ -1,10 +1,11 @@
 import PlayerController from "../../../Controller/PlayerController";
 import { TILE_SIZE } from "../../../game/constants";
+import MapHandler from "../../../map/MapHandler";
 import Entity_Mob from "../Entity_Mob";
 
 export default class Player extends Entity_Mob {
-  constructor(x=0, y=0) {
-    super(x, y, new PlayerController);
+  constructor(x=0, y=0, map=null) {
+    super(x, y, new PlayerController, map);
 
     // Image
     this.src.x = 16;
@@ -43,6 +44,14 @@ export default class Player extends Entity_Mob {
   }
 
   #handleMovement(dt) {
+    // Handle collision
+    const nextx = this.targetTile.x / TILE_SIZE;
+    const nexty = this.targetTile.y / TILE_SIZE;
+    if (MapHandler.getMap(this.map).getTileObject(nextx, nexty)?.isSolid) {
+      this.targetTile.x = this.dst.x;
+      this.targetTile.y = this.dst.y;
+    }
+
     // Finalize movement
     if (this.targetTile.x > this.dst.x) this.dst.x += this.vel.x;
     if (this.targetTile.x < this.dst.x) this.dst.x -= this.vel.x;

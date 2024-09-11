@@ -25,7 +25,7 @@ class _MapHandler {
       fetch(`res/map/${filename}`)
         .then(val => val.json())
         .then(data => {
-          this.#maps[mapID] = new Map(data);
+          this.#maps[mapID] = new Map(data, mapID);
           res(`${filename} loaded`);
         })
         .catch(err => rej(`Failed to load ${filename}`));
@@ -51,6 +51,17 @@ class _MapHandler {
    */
   drawMap(mapID, crop) {
     this.#maps[mapID].draw(crop);
+  }
+
+  /**
+   * @brief Draws a layer of the tilemap
+   *
+   * @param {String} mapID   - ID of the map to draw
+   * @param {Rectangle} crop - Rectangle for cropping
+   * @param {Number} layer   - Layer of the map to draw
+   */
+  drawMapLayer(mapID, crop, layer) {
+    this.#maps[mapID].drawLayer(crop, layer);
   }
 };
 

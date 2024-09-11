@@ -6,13 +6,15 @@ export default class Entity {
   #dst; // Destination rectangle
   #src; // Blit image source rectangle
 
+  #map; // Map the entity belongs to
+
   // Physics
   #dir;      // Directional vector
   #accel;    // Acceleration vector
   #vel;      // Velocity vector
   #friction; // Friction vector
 
-  constructor(x=0, y=0) {
+  constructor(x=0, y=0, map=null) {
     if (this.constructor === Entity)
       throw new Error("Can't instantiate abstract class Entity");
 
@@ -27,6 +29,8 @@ export default class Entity {
     this.#dst = new Rectangle(x, y, TILE_SIZE, TILE_SIZE);
     this.#src = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
 
+    this.#map = map;
+
     this.#dir      = Vec2D.zero();
     this.#accel    = Vec2D.zero();
     this.#vel      = Vec2D.zero();
@@ -36,6 +40,8 @@ export default class Entity {
   // Accessors
   get dst()      { return this.#dst; }
   get src()      { return this.#src; }
+
+  get map()      { return this.#map; }
 
   get dir()      { return this.#dir; }
   get accel()    { return this.#accel; }

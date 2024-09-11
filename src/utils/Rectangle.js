@@ -56,6 +56,19 @@ export default class Rectangle {
     };
   }
 
+  // Utils
+  /**
+   * @brief Get current world coordinates as grid coordinates
+   *
+   * @returns An object {x, y} as grid coordinates
+   */
+  toGrid() {
+    return {
+      x: Math.floor(this.#pos.x / TILE_SIZE),
+      y: Math.floor(this.#pos.y / TILE_SIZE)
+    };
+  }
+
   // Accessors
   get pos() { return this.#pos; }
   get x() { return this.#pos.x; }
