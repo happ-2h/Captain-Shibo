@@ -39,8 +39,9 @@ export default class Map {
 
           if (tileID > 0) {
             switch(tileID) {
-              case 32: // TEMP solid tile
-                this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
+              case 1:
+              case 32:
+                this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
                 break;
             }
           }

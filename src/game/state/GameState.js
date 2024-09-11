@@ -18,23 +18,30 @@ export default class GameState extends State {
   init() {
     this.map = "test_map";
 
-    this.gameObjects.push(new Player(0, 0, this.map));
-    this.camera = new Camera(
-      this.gameObjects[0].dst.x,
-      this.gameObjects[0].dst.y
-    );
-
     // Setup world objects
     MapHandler.getMap(this.map).tiles.forEach(row => {
       row.forEach(tile => {
         if (tile) {
-          this.gameObjects.push(new Tile(
-            tile.dst.pos.x * TILE_SIZE,
-            tile.dst.pos.y * TILE_SIZE,
-            tile.type,
-            tile.isSolid,
-            this.map
-          ));
+          if (tile.type === 1) {
+            this.gameObjects.push(new Player(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map
+            ));
+            this.camera = new Camera(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE
+            );
+          }
+          else {
+            this.gameObjects.push(new Tile(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              tile.type,
+              tile.isSolid,
+              this.map
+            ));
+          }
         }
       });
     });
@@ -53,10 +60,10 @@ export default class GameState extends State {
 
   render() {
     Renderer.setOffset(this.camera.x, this.camera.y);
-    // MapHandler.drawMap(this.map, new Rectangle(this.camera.x, this.camera.y, 21, 13));
     MapHandler.drawMapLayer(this.map, new Rectangle(this.camera.x, this.camera.y, 21, 13), 0);
-    this.gameObjects.forEach(go => {
-      go.draw();
-    });
+
+    this.gameObjects
+      .sort((a, b) => a.dst.pos.y - b.dst.pos.y)
+      .forEach(go => go.draw());
   }
 };
