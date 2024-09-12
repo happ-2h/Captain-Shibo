@@ -19,4 +19,8 @@ export default class PlayerController extends Controller {
   isRequestingRight() {
     return KeyHandler.isDown(39);
   }
+
+  isRequestingA() {
+    return KeyHandler.isDown(90);
+  }
 };

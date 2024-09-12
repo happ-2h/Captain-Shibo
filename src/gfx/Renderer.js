@@ -116,6 +116,17 @@ class _Renderer {
     );
   }
 
+  /**
+   * @brief Draw an image to the canvas. Not related to the game coordinates
+   *
+   * @param {CanvasImageSource} img - Image to draw
+   * @param {Number} x - x-position to draw the image
+   * @param {Number} y - y-position to draw the image
+   */
+  imageRaw(img, x, y) {
+    this.#ctx.drawImage(img, x, y);
+  }
+
   // Vector functions
   /**
    * @brief Draws a rectangle\

@@ -3,8 +3,14 @@ import { TILE_SIZE } from "../../../game/constants";
 import MapHandler from "../../../map/MapHandler";
 import Entity_Mob from "../Entity_Mob";
 import Animation from "../../../gfx/Animation";
+import StateHandler from "../../../game/state/StateHandler";
+import DialogueState from "../../../game/state/DialogueState";
+import { canvasSnapshot } from "../../../gfx/utils";
 
 export default class Player extends Entity_Mob {
+  #speakTimer;
+  #speakDelay; // Prevents infinite DialogueState
+
   constructor(x=0, y=0, map=null) {
     super(x, y, new PlayerController, map);
 
@@ -16,41 +22,76 @@ export default class Player extends Entity_Mob {
     this.shouldAnimate = true;
     this.facing = "down";
 
+    this.status = "roaming";
+
+    this.#speakTimer = 0;
+    this.#speakDelay = 0.4;
+
     this.vel.set(1, 1);
   }
 
   init() {}
 
-  update(dt) {
-    this.#handleInput();
+  update(go, dt) {
+    this.#handleInput(go, dt);
     this.#handleMovement(dt);
     this.#handleAnimation(dt);
   }
 
-  #handleInput() {
-    if (!this.isMoving && this.controller.isRequestingLeft()) {
-      this.targetTile.x -= TILE_SIZE;
-      this.dir.x = -1;
-      this.facing = "left";
-      this.isMoving = true;
-    }
-    else if (!this.isMoving && this.controller.isRequestingRight()) {
-      this.targetTile.x += TILE_SIZE;
-      this.dir.x = 1;
-      this.facing = "right";
-      this.isMoving = true;
-    }
-    else if (!this.isMoving && this.controller.isRequestingUp()) {
-      this.targetTile.y -= TILE_SIZE;
-      this.dir.y = -1;
-      this.facing = "up";
-      this.isMoving = true;
-    }
-    else if (!this.isMoving && this.controller.isRequestingDown()) {
-      this.targetTile.y += TILE_SIZE;
-      this.dir.y = 1;
-      this.facing = "down";
-      this.isMoving = true;
+  #handleInput(go, dt) {
+    this.#speakTimer += dt;
+
+    if (this.status === "roaming") {
+      if (!this.isMoving && this.controller.isRequestingLeft()) {
+        this.targetTile.x -= TILE_SIZE;
+        this.dir.x = -1;
+        this.facing = "left";
+        this.isMoving = true;
+      }
+      else if (!this.isMoving && this.controller.isRequestingRight()) {
+        this.targetTile.x += TILE_SIZE;
+        this.dir.x = 1;
+        this.facing = "right";
+        this.isMoving = true;
+      }
+      else if (!this.isMoving && this.controller.isRequestingUp()) {
+        this.targetTile.y -= TILE_SIZE;
+        this.dir.y = -1;
+        this.facing = "up";
+        this.isMoving = true;
+      }
+      else if (!this.isMoving && this.controller.isRequestingDown()) {
+        this.targetTile.y += TILE_SIZE;
+        this.dir.y = 1;
+        this.facing = "down";
+        this.isMoving = true;
+      }
+
+      // Actions
+      if (!this.isMoving && this.controller.isRequestingA()) {
+        let requestedTile = -1;
+        let _x = Math.floor(this.dst.pos.x / TILE_SIZE);
+        let _y = Math.floor(this.dst.pos.y / TILE_SIZE);
+
+        switch(this.facing) {
+          case "up":    --_y; break;
+          case "down":  ++_y; break;
+          case "left":  --_x; break;
+          case "right": ++_x; break;
+        }
+
+        requestedTile = MapHandler.getMap(this.map).getTileObject(_x, _y)?.type;
+
+        // NPC_Basic
+        if (requestedTile === 48 && this.#speakTimer >= this.#speakDelay) {
+          this.#speakTimer = 0;
+          StateHandler.push(new DialogueState(
+            canvasSnapshot(),
+            go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y),
+            this
+          ));
+        }
+      }
     }
   }
 
@@ -65,6 +106,7 @@ export default class Player extends Entity_Mob {
     if (nextx >= MapHandler.getMap(this.map).width) this.targetTile.x = this.dst.x;
     if (nexty >= MapHandler.getMap(this.map).height) this.targetTile.y = this.dst.y;
 
+    // - Map objects
     if (MapHandler.getMap(this.map).getTileObject(nextx, nexty)?.isSolid) {
       this.targetTile.x = this.dst.x;
       this.targetTile.y = this.dst.y;
@@ -108,11 +150,12 @@ export default class Player extends Entity_Mob {
 
   #handleAnimation(dt) {
     if (
-      this.controller.isRequestingUp()    ||
+      this.status === "roaming" &&
+      (this.controller.isRequestingUp()   ||
       this.controller.isRequestingDown()  ||
       this.controller.isRequestingLeft()  ||
       this.controller.isRequestingRight() ||
-      !this.targetTile.equals(this.dst.pos)
+      !this.targetTile.equals(this.dst.pos))
     )
       this.animation.update(dt);
     else this.animation.currentFrame = 0;

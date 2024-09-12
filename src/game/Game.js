@@ -30,7 +30,7 @@ export default class Game {
   init() {
     StateHandler.push(new GameState);
 
-    Renderer.init(this.#cnv.getContext("2d"));
+    Renderer.init(this.#cnv.getContext("2d", {alpha: false}));
 
     this.#last = performance.now();
     this.update(this.#last);
@@ -48,7 +48,8 @@ export default class Game {
   }
 
   render(dt) {
-    Renderer.clear(this.#cnv.width, this.#cnv.height);
+    // NOTE: May not be needed
+    // Renderer.clear(this.#cnv.width, this.#cnv.height);
 
     StateHandler.render();
 

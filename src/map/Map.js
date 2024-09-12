@@ -11,7 +11,8 @@ export default class Map {
   #tiles;  // Container of tile objects
 
   /**
-   * @param {JSON} data - JSON object
+   * @param {JSON} data    - JSON object
+   * @param {String} mapID - UID for this map
    */
   constructor(data, mapID) {
     this.#id = mapID;
@@ -43,6 +44,9 @@ export default class Map {
                 this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
                 break;
               case 32: // TEMP solid
+                this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
+                break;
+              case 48: // TEMP NPC
                 this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
                 break;
             }

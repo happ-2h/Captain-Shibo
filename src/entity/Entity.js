@@ -7,6 +7,8 @@ export default class Entity {
   #src; // Blit image source rectangle
 
   #map;    // Map the entity belongs to
+  #facing; // Facing direction
+  #status; // What the enitity is doing
 
   // Physics
   #dir;      // Directional vector
@@ -17,7 +19,6 @@ export default class Entity {
   // Animations
   #animation;
   #shouldAnimate;
-  #facing; // Facing direction
 
   constructor(x=0, y=0, map=null) {
     if (this.constructor === Entity)
@@ -36,6 +37,7 @@ export default class Entity {
 
     this.#map = map;
     this.#facing = "down";
+    this.#status = "roaming";
 
     this.#animation = null;
     this.#shouldAnimate = false;
@@ -52,6 +54,7 @@ export default class Entity {
 
   get map()      { return this.#map; }
   get facing()   { return this.#facing; }
+  get status()   { return this.#status; }
 
   get dir()      { return this.#dir; }
   get accel()    { return this.#accel; }
@@ -66,6 +69,7 @@ export default class Entity {
   set src(src) { this.#src = src; }
 
   set facing(facing) { this.#facing = facing; }
+  set status(status) { this.#status = status; }
 
   set animation(animation)  { this.#animation = animation; }
   set shouldAnimate(should) { this.#shouldAnimate = should; }

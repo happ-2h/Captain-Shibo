@@ -1,5 +1,6 @@
 import Camera from "../../camera/Camera";
 import Player from "../../entity/mobile/player/Player";
+import NPC_Basic from "../../entity/npc/NPC_basic";
 import Tile from "../../entity/tile/Tile";
 import Renderer from "../../gfx/Renderer";
 import MapHandler from "../../map/MapHandler";
@@ -33,6 +34,13 @@ export default class GameState extends State {
               tile.dst.pos.y * TILE_SIZE
             );
           }
+          else if (tile.type === 48) {
+            this.gameObjects.push(new NPC_Basic(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map
+            ));
+          }
           else {
             this.gameObjects.push(new Tile(
               tile.dst.pos.x * TILE_SIZE,
@@ -49,12 +57,14 @@ export default class GameState extends State {
 
   update(dt) {
     this.gameObjects.forEach(go => {
-      go.update(dt);
 
       if (go instanceof Player) {
+        go.update(this.gameObjects, dt);
+
         this.camera.vfocus(go.dst.pos);
         this.camera.update(dt);
       }
+      else go.update(dt);
     });
   }
 
