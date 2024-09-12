@@ -82,14 +82,17 @@ export default class Player extends Entity_Mob {
 
         requestedTile = MapHandler.getMap(this.map).getTileObject(_x, _y)?.type;
 
-        // NPC_Basic
-        if (requestedTile === 48 && this.#speakTimer >= this.#speakDelay) {
-          this.#speakTimer = 0;
-          StateHandler.push(new DialogueState(
-            canvasSnapshot(),
-            go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y),
-            this
-          ));
+        // Dialogue objects
+        if (this.#speakTimer >= this.#speakDelay) {
+          // NPC_Basic or OBJ_Sign
+          if (requestedTile === 48 || requestedTile === 33) {
+            this.#speakTimer = 0;
+            StateHandler.push(new DialogueState(
+              canvasSnapshot(),
+              go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y),
+              this
+            ));
+          }
         }
       }
     }

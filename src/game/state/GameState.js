@@ -1,6 +1,7 @@
 import Camera from "../../camera/Camera";
 import Player from "../../entity/mobile/player/Player";
 import NPC_Basic from "../../entity/npc/NPC_basic";
+import OBJ_Sign from "../../entity/object/OBJ_Sign";
 import Tile from "../../entity/tile/Tile";
 import Renderer from "../../gfx/Renderer";
 import MapHandler from "../../map/MapHandler";
@@ -40,6 +41,15 @@ export default class GameState extends State {
               tile.dst.pos.y * TILE_SIZE,
               this.map
             ));
+          }
+          else if (tile.type === 33) {
+            this.gameObjects.push(new OBJ_Sign(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map,
+              "Sign Test"
+            ))
+
           }
           else {
             this.gameObjects.push(new Tile(

@@ -49,6 +49,9 @@ export default class Map {
               case 48: // TEMP NPC
                 this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
                 break;
+              case 33: // TEMP sign
+                this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
+                break;
             }
           }
         }
