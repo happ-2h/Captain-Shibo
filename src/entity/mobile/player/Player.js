@@ -6,10 +6,11 @@ import Animation from "../../../gfx/Animation";
 import StateHandler from "../../../game/state/StateHandler";
 import DialogueState from "../../../game/state/DialogueState";
 import { canvasSnapshot } from "../../../gfx/utils";
+import BuildingState from "../../../game/state/BuildingState";
 
 export default class Player extends Entity_Mob {
-  #speakTimer;
-  #speakDelay; // Prevents infinite DialogueState
+  #actionTimer;
+  #actionDelay; // Prevents infinite action requests
 
   constructor(x=0, y=0, map=null) {
     super(x, y, new PlayerController, map);
@@ -24,8 +25,8 @@ export default class Player extends Entity_Mob {
 
     this.status = "roaming";
 
-    this.#speakTimer = 0;
-    this.#speakDelay = 0.4;
+    this.#actionTimer = 0;
+    this.#actionDelay = 0.4;
 
     this.vel.set(1, 1);
   }
@@ -39,7 +40,7 @@ export default class Player extends Entity_Mob {
   }
 
   #handleInput(go, dt) {
-    this.#speakTimer += dt;
+    this.#actionTimer += dt;
 
     if (this.status === "roaming") {
       if (!this.isMoving && this.controller.isRequestingLeft()) {
@@ -82,16 +83,31 @@ export default class Player extends Entity_Mob {
 
         requestedTile = MapHandler.getMap(this.map).getTileObject(_x, _y)?.type;
 
-        // Dialogue objects
-        if (this.#speakTimer >= this.#speakDelay) {
+        if (this.#actionTimer >= this.#actionDelay) {
           // NPC_Basic or OBJ_Sign
           if (requestedTile === 48 || requestedTile === 33) {
-            this.#speakTimer = 0;
+            this.#actionTimer = 0;
             StateHandler.push(new DialogueState(
               canvasSnapshot(),
               go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y),
               this
             ));
+          }
+
+          // Door
+          else if (requestedTile === 103) {
+            this.#actionTimer = 0;
+
+            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
+
+            if (doorObj.locked)
+              StateHandler.push(new DialogueState(
+                canvasSnapshot(),
+                null, this,
+                "Door is locked"
+              ));
+            else
+              StateHandler.push(new BuildingState(this, doorObj.to));
           }
         }
       }
@@ -165,5 +181,13 @@ export default class Player extends Entity_Mob {
 
     this.src.pos.x = (this.animation.currentFrame&0xF)<<4;
     this.src.pos.y = (this.animation.currentFrame>>4)<<4;
+  }
+
+  steppingOn(layer=0) {
+    return MapHandler.getMap(this.map).getTileNum(
+      this.dst.pos.x / TILE_SIZE,
+      this.dst.pos.y / TILE_SIZE,
+      layer
+    );
   }
 };

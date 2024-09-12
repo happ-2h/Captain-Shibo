@@ -68,6 +68,7 @@ export default class Entity {
   set dst(dst) { this.#dst = dst; }
   set src(src) { this.#src = src; }
 
+  set map(map)       { this.#map = map; }
   set facing(facing) { this.#facing = facing; }
   set status(status) { this.#status = status; }
 

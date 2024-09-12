@@ -8,6 +8,7 @@ export default class DialogueState extends State {
   #background;  // Background image
   #objSpeaker;  // Object speaking
   #objListener; // Object listening
+  #text;        // Raw text instead of a speaker
 
   #inputTimer;  // Timer for pressing action button
   #inputDelay;  // Delay in milliseconds
@@ -16,8 +17,9 @@ export default class DialogueState extends State {
    * @param {String} background  - Image (png) source
    * @param {Entity} objSpeaker  - Speaker object reference
    * @param {Entity} objListener - Listener object reference
+   * @param {String} text        - Raw text instead of a speaker
    */
-  constructor(background=null, objSpeaker=null, objListener=null) {
+  constructor(background=null, objSpeaker=null, objListener=null, text=null) {
     super();
 
     if (background) {
@@ -28,6 +30,7 @@ export default class DialogueState extends State {
 
     this.#objSpeaker  = objSpeaker;
     this.#objListener = objListener;
+    this.#text = text;
 
     this.#inputTimer = 0;
     this.#inputDelay = 0.4;
@@ -44,11 +47,13 @@ export default class DialogueState extends State {
     if (this.#inputTimer >= this.#inputDelay) {
       if (KeyHandler.isDown(90)) {
         this.#inputTimer = 0;
-        this.#objSpeaker.nextDialogue();
 
-        if (this.#objSpeaker.colDone) {
-          StateHandler.pop();
+        if (!this.#text) {
+          this.#objSpeaker.nextDialogue();
+
+          if (this.#objSpeaker.colDone) StateHandler.pop();
         }
+        else StateHandler.pop();
       }
     }
   }
@@ -56,6 +61,9 @@ export default class DialogueState extends State {
   render() {
     Renderer.imageRaw(this.#background, 0, 0);
 
-    Renderer.text(this.#objSpeaker.currentLine(), 160, 160);
+    if (!this.#text)
+      Renderer.text(this.#objSpeaker.currentLine(), 160, 160);
+    else
+      Renderer.text(this.#text, 160, 160);
   }
 };

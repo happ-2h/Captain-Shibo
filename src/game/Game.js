@@ -20,6 +20,7 @@ export default class Game {
     // Poll assets
     AssetHandler.poll("spritesheet", "spritesheet.png");
     AssetHandler.poll("test_map", "test_map.json");
+    AssetHandler.poll("building_test", "building_test.json");
 
     // If assets successfully loaded, start game loop
     AssetHandler.load()

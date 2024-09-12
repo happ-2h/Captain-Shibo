@@ -1,4 +1,5 @@
 import Tile from "../entity/tile/Tile";
+import Tile_Door from "../entity/tile/Tile_Door";
 import { TILE_SIZE } from "../game/constants";
 import Renderer from "../gfx/Renderer";
 import Vec2D from "../math/Vec2D";
@@ -39,6 +40,7 @@ export default class Map {
           const tileID = this.#layers[1].data[x+y*this.#dim.x] - 1;
 
           if (tileID > 0) {
+            // TEMP format
             switch(tileID) {
               case 1: // Player
                 this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
@@ -52,6 +54,13 @@ export default class Map {
               case 33: // TEMP sign
                 this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
                 break;
+              case 100: // TEMP exit
+                this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
+                break;
+              case 103: // TEMP door
+                this.#tiles[y][x] = new Tile_Door(x, y, tileID, true, this.#id, ["building_test"], false);
+                break;
+              default: this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id); break;
             }
           }
         }
