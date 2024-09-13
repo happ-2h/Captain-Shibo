@@ -1,5 +1,6 @@
 import Entity from "../../entity/Entity";
 import Renderer from "../../gfx/Renderer";
+import GamepadHandler from "../../input/GamepadHandler";
 import KeyHandler from "../../input/KeyHandler";
 import State from "./State";
 import StateHandler from "./StateHandler";
@@ -45,7 +46,7 @@ export default class DialogueState extends State {
     this.#inputTimer += dt;
 
     if (this.#inputTimer >= this.#inputDelay) {
-      if (KeyHandler.isDown(90)) {
+      if (KeyHandler.isDown(90) || GamepadHandler.action0) {
         this.#inputTimer = 0;
 
         if (!this.#text) {
