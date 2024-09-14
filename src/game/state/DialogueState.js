@@ -1,3 +1,4 @@
+import AudioHandler from "../../audio/AudioHandler";
 import Entity from "../../entity/Entity";
 import Renderer from "../../gfx/Renderer";
 import GamepadHandler from "../../input/GamepadHandler";
@@ -37,7 +38,7 @@ export default class DialogueState extends State {
     this.#inputDelay = 0.4;
   }
 
-  onEnter() {}
+  onEnter() { AudioHandler.play("notif"); }
   onExit()  {}
 
   init() {}

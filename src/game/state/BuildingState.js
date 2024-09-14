@@ -7,6 +7,7 @@ import Renderer from "../../gfx/Renderer";
 import Rectangle from "../../utils/Rectangle";
 import Tile from "../../entity/tile/Tile";
 import StateHandler from "./StateHandler";
+import AudioHandler from "../../audio/AudioHandler";
 
 export default class BuildingState extends State {
   #player;
@@ -15,23 +16,32 @@ export default class BuildingState extends State {
   #maps;    // Floors
   #currentFloor;
 
+  #bkgdMusic; // Music for this state
+  #prevMusic; // Music to replay after leaving
+
   /**
    *
    * @param {Player} player - Reference to the player
    * @param {String} maps   - Strings of maps representing floors
    */
-  constructor(player=null, maps=null) {
+  constructor(player=null, maps=null, bkgdmusic=null, prevmusic=null) {
     super();
     this.#player = player;
     this.#prevPos = player.dst.pos.clone();
     this.#prevMap = this.#player.map;
+
+    this.#bkgdMusic = bkgdmusic;
+    this.#prevMusic = prevmusic;
 
     this.#maps = [ ...maps ];
     this.#currentFloor = 0;
   }
 
   onEnter() { this.init(); }
-  onExit() {}
+  onExit() {
+    AudioHandler.stop(this.#bkgdMusic);
+    AudioHandler.playMusic(this.#prevMusic);
+  }
 
   init() {
     this.map = this.#maps[0];
@@ -68,6 +78,11 @@ export default class BuildingState extends State {
         }
       })
     });
+
+    AudioHandler.stop(this.#prevMusic);
+    AudioHandler.setVolume(this.#bkgdMusic, 0.8);
+    AudioHandler.setPlaybackRate(this.#bkgdMusic, 1.4);
+    AudioHandler.playMusic(this.#bkgdMusic);
   }
 
   update(dt) {

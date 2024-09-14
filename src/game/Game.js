@@ -19,9 +19,15 @@ export default class Game {
     this.#last = 0;
 
     // Poll assets
+    // - Images
     AssetHandler.poll("spritesheet", "spritesheet.png");
+    // - Maps
     AssetHandler.poll("test_map", "test_map.json");
     AssetHandler.poll("building_test", "building_test.json");
+    // - Sounds
+    AssetHandler.poll("notif", "notif.wav");
+    AssetHandler.poll("bkgd_test", "bkgd_test.ogg");
+    AssetHandler.poll("bkgd_building_test", "bkgd_building_test.ogg");
 
     // If assets successfully loaded, start game loop
     AssetHandler.load()

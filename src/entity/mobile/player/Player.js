@@ -107,7 +107,7 @@ export default class Player extends Entity_Mob {
                 "Door is locked"
               ));
             else
-              StateHandler.push(new BuildingState(this, doorObj.to));
+              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
           }
         }
       }

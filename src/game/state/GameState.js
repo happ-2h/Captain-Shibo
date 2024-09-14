@@ -1,3 +1,4 @@
+import AudioHandler from "../../audio/AudioHandler";
 import Camera from "../../camera/Camera";
 import Player from "../../entity/mobile/player/Player";
 import NPC_Basic from "../../entity/npc/NPC_basic";
@@ -63,6 +64,9 @@ export default class GameState extends State {
         }
       });
     });
+
+    AudioHandler.setVolume("bkgd_test", 0.8);
+    AudioHandler.playMusic("bkgd_test");
   }
 
   update(dt) {
