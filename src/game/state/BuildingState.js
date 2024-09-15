@@ -81,7 +81,7 @@ export default class BuildingState extends State {
 
     AudioHandler.stop(this.#prevMusic);
     AudioHandler.setVolume(this.#bkgdMusic, 0.8);
-    AudioHandler.setPlaybackRate(this.#bkgdMusic, 1.4);
+    AudioHandler.setPlaybackRate(this.#bkgdMusic, 0.9);
     AudioHandler.playMusic(this.#bkgdMusic);
   }
 

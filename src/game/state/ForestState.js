@@ -10,6 +10,7 @@ import { TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants";
 import { randInt } from "../../math/utils";
 import OBJ_Chest from "../../entity/object/OBJ_Chest";
 import OBJ_Coins from "../../entity/object/OBJ_Coins";
+import StateHandler from "./StateHandler";
 
 export default class ForestState extends State {
   #player;
@@ -29,6 +30,7 @@ export default class ForestState extends State {
 
     this.#player  = player;
     this.#prevPos = player.dst.pos.clone();
+    this.#prevPos.y = 32;
     this.#prevMap = player.map;
 
     this.#bkgdMusic = bkgdmusic;
@@ -114,6 +116,15 @@ export default class ForestState extends State {
       }
       else go.update(dt);
     });
+
+    // Exit
+    if (this.#player.steppingOn(0) === 100 || this.#player.steppingOn(1) === 100) {
+      this.#player.dst.pos.copy(this.#prevPos);
+      this.#player.targetTile.copy(this.#prevPos);
+      this.#player.map = this.#prevMap;
+      this.#player.facing = "down";
+      StateHandler.pop();
+    }
   }
 
   render() {
