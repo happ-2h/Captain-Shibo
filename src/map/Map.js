@@ -54,7 +54,8 @@ export default class Map {
               case 33: // TEMP sign
                 this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
                 break;
-              case 100: // TEMP exit
+              case  99: // TEMP arrows (enter/exit)
+              case 100:
                 this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
                 break;
               case 103: // TEMP door
@@ -192,6 +193,21 @@ export default class Map {
       return this.#tiles[y][x];
 
     return null;
+  }
+
+  /**
+   * @brief Place an object on the map
+   *
+   * @param {Number} x      - Grid x-position
+   * @param {Number} y      - Grid y-position
+   * @param {NUMBER} tileID - ID of the tile
+   */
+  setTileObj(x=0, y=0, tileID) {
+    x |= 0;
+    y |= 0;
+
+    if (x >= 0 && x < this.#dim.x && y >= 0 && y < this.#dim.y)
+      this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
   }
 
   /**

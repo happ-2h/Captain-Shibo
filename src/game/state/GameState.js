@@ -8,7 +8,9 @@ import Renderer from "../../gfx/Renderer";
 import MapHandler from "../../map/MapHandler";
 import Rectangle from "../../utils/Rectangle";
 import { TILE_SIZE } from "../constants";
+import ForestState from "./ForestState";
 import State from "./State";
+import StateHandler from "./StateHandler";
 
 export default class GameState extends State {
   constructor() {
@@ -70,16 +72,24 @@ export default class GameState extends State {
   }
 
   update(dt) {
+    let playerRef = null;
+
     this.gameObjects.forEach(go => {
 
       if (go instanceof Player) {
         go.update(this.gameObjects, dt);
+        playerRef = go;
 
         this.camera.vfocus(go.dst.pos);
         this.camera.update(dt);
       }
       else go.update(dt);
     });
+
+    // Go into forest
+    if (playerRef.steppingOn(0) === 99 || playerRef.steppingOn(1) === 99) {
+      StateHandler.push(new ForestState(playerRef, "bkgd_forest_test", "bkgd_test"));
+    }
   }
 
   render() {

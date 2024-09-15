@@ -109,6 +109,22 @@ export default class Player extends Entity_Mob {
             else
               StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
           }
+
+          // Chest
+          else if (requestedTile === 35) {
+            this.#actionTimer = 0;
+
+            const chestObj = go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y);
+
+            if (chestObj.isClosed) {
+              chestObj.open();
+              StateHandler.push(new DialogueState(
+                canvasSnapshot(),
+                null, this,
+                `Got ${chestObj.loot.name}`
+              ));
+            }
+          }
         }
       }
     }

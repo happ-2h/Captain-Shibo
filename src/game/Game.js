@@ -23,10 +23,13 @@ export default class Game {
     AssetHandler.poll("spritesheet", "spritesheet.png");
     // - Maps
     AssetHandler.poll("test_map", "test_map.json");
+    AssetHandler.poll("test_forest", "test_forest.json");
     AssetHandler.poll("building_test", "building_test.json");
     // - Sounds
     AssetHandler.poll("notif", "notif.wav");
+    AssetHandler.poll("open_chest", "open_chest.wav");
     AssetHandler.poll("bkgd_test", "bkgd_test.ogg");
+    AssetHandler.poll("bkgd_forest_test", "bkgd_forest_test.ogg");
     AssetHandler.poll("bkgd_building_test", "bkgd_building_test.ogg");
 
     // If assets successfully loaded, start game loop
