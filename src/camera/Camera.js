@@ -67,4 +67,6 @@ export default class Camera {
   // Mutators
   set lerpSpeed(ls) { this.#lerpSpeed = ls; }
   set lookahead(la) { this.#lookahead = la; }
+  set x(x)          { this.#rect.x = x; }
+  set y(y)          { this.#rect.y = y; }
 };

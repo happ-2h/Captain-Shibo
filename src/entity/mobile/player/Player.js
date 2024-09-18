@@ -12,6 +12,13 @@ export default class Player extends Entity_Mob {
   #actionTimer;
   #actionDelay; // Prevents infinite action requests
 
+  #hp;
+  #maxHp;
+  #def;
+  #defending;
+
+  #attackPts;
+
   constructor(x=0, y=0, map=null) {
     super(x, y, new PlayerController, map);
 
@@ -23,7 +30,13 @@ export default class Player extends Entity_Mob {
     this.shouldAnimate = true;
     this.facing = "down";
 
+    // Battle
     this.status = "roaming";
+    this.#hp    = 25;
+    this.#maxHp = 25;
+    this.#def   =  3;
+    this.#defending = false;
+    this.#attackPts = 5;
 
     this.#actionTimer = 0;
     this.#actionDelay = 0.4;
@@ -206,4 +219,20 @@ export default class Player extends Entity_Mob {
       layer
     );
   }
+
+  recover() {
+    this.#hp = this.#maxHp;
+  }
+
+  // Mutators
+  set hp(hp)    { this.#hp  = hp; }
+  set maxHp(hp) { this.#maxHp = hp; }
+  set def(def)  { this.#def = def; }
+  set defending(def) { this.#defending = def; }
+
+  // Accessors
+  get hp()    { return this.#hp; }
+  get maxHp() { return this.#maxHp; }
+  get def()   { return this.#def; }
+  get atk()   { return this.#attackPts; }
 };
