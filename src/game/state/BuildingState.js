@@ -63,7 +63,9 @@ export default class BuildingState extends State {
 
             this.camera = new Camera(
               tile.dst.pos.x * TILE_SIZE,
-              tile.dst.pos.y * TILE_SIZE
+              tile.dst.pos.y * TILE_SIZE,
+              15, 10,
+              this.map
             );
           }
           else {
