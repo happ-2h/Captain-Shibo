@@ -35,7 +35,9 @@ export default class GameState extends State {
             ));
             this.camera = new Camera(
               tile.dst.pos.x * TILE_SIZE,
-              tile.dst.pos.y * TILE_SIZE
+              tile.dst.pos.y * TILE_SIZE,
+              20, 11,
+              this.map
             );
           }
           else if (tile.type === 48) {
@@ -51,8 +53,7 @@ export default class GameState extends State {
               tile.dst.pos.y * TILE_SIZE,
               this.map,
               "Sign Test"
-            ))
-
+            ));
           }
           else {
             this.gameObjects.push(new Tile(

@@ -6,9 +6,9 @@ export default class Entity {
   #dst; // Destination rectangle
   #src; // Blit image source rectangle
 
-  #map;    // Map the entity belongs to
-  #facing; // Facing direction
-  #status; // What the enitity is doing
+  #map;      // Map the entity belongs to
+  #facing;   // Facing direction
+  #status;   // What the enitity is doing
 
   // Physics
   #dir;      // Directional vector

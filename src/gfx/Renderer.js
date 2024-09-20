@@ -159,6 +159,27 @@ class _Renderer {
   }
 
   /**
+   * @brief Draws a circle
+   *
+   * @param {Vec2D}  pos   - Vector used for positioning
+   * @param {Number} rad   - Radius of the circle
+   * @param {String} color - Color of the circle
+   */
+  vcircle(pos=null, rad=0, color="red") {
+    this.#ctx.strokeStyle = color;
+
+    this.#ctx.beginPath();
+      this.#ctx.arc(
+        Math.floor((pos.x - this.#offset.x + this.#epsilon) * GAME_SCALE),
+        Math.floor((pos.y - this.#offset.y + this.#epsilon) * GAME_SCALE),
+        rad * GAME_SCALE,
+        0, 2*Math.PI
+      );
+      this.#ctx.stroke();
+    this.#ctx.closePath();
+  }
+
+  /**
    * @brief Draws an image to the canvas
    *
    * @param {String} textureID - ID of texture

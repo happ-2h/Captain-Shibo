@@ -1,7 +1,8 @@
 import Rectangle from "../utils/Rectangle";
-import { RES_HEIGHT, RES_SCALE, RES_WIDTH } from "../game/constants"
+import { RES_HEIGHT, RES_SCALE, RES_WIDTH, TILE_SIZE } from "../game/constants"
 import { lerp } from "../math/utils";
 import Vec2D from "../math/Vec2D";
+import MapHandler from "../map/MapHandler";
 
 export default class Camera {
   #rect;    // Holds x, y, width, and height of the camera
@@ -10,18 +11,25 @@ export default class Camera {
   #lerpSpeed;
   #lookahead; // Lookahead distance
 
+  #mapLimit;  // stop the camera from going off-screen
+
   /**
    * @param {Number} x      - x-position focus point
    * @param {Number} y      - y-position focus point
    * @param {Number} width  - Width  in number of cells
    * @param {Number} height - Height in number of cells
    */
-  constructor(x=0, y=0, width=RES_WIDTH, height=RES_HEIGHT) {
+  constructor(x=0, y=0, width=RES_WIDTH, height=RES_HEIGHT, map=null) {
     this.#rect = new Rectangle(x, y, width, height);
     this.#focalPt = new Vec2D(x, y);
 
     this.#lerpSpeed = 0.1;
     this.#lookahead = 6;
+
+    this.#mapLimit = map ? new Vec2D(
+      MapHandler.getMap(map).width  * TILE_SIZE,
+      MapHandler.getMap(map).height * TILE_SIZE
+    ) : Vec2D.zero();
   }
 
   /**
@@ -49,6 +57,8 @@ export default class Camera {
 
     if (dx < 0) dx = 0;
     if (dy < 0) dy = 0;
+    if (dx > this.#mapLimit.x - this.#rect.w * TILE_SIZE) dx = this.#mapLimit.x - this.#rect.w * TILE_SIZE;
+    if (dy > this.#mapLimit.y - this.#rect.h * TILE_SIZE) dy = this.#mapLimit.y - this.#rect.h * TILE_SIZE;
 
     this.#rect.x = lerp(this.#rect.x, dx, this.#lerpSpeed);
     this.#rect.y = lerp(this.#rect.y, dy, this.#lerpSpeed);

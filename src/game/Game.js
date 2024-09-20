@@ -21,11 +21,13 @@ export default class Game {
     // Poll assets
     // - Images
     AssetHandler.poll("spritesheet", "spritesheet.png");
+    AssetHandler.poll("enemyship01", "enemyship_01.png");
     // - Maps
     AssetHandler.poll("test_map", "test_map.json");
     AssetHandler.poll("test_forest", "test_forest.json");
     AssetHandler.poll("test_battleBKGD", "test_battleBKGD.json");
     AssetHandler.poll("building_test", "building_test.json");
+    AssetHandler.poll("space_bkgd", "space_bkgd.json");
     // - Sounds
     AssetHandler.poll("notif", "notif.wav");
     AssetHandler.poll("open_chest", "open_chest.wav");
@@ -68,6 +70,6 @@ export default class Game {
 
     StateHandler.render();
 
-    if (DEBUG) Renderer.text(1/dt, 32, 32);
+    if (DEBUG) Renderer.text(1/dt, 32, 32, "red");
   }
 };

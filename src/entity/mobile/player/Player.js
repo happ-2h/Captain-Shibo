@@ -7,6 +7,7 @@ import StateHandler from "../../../game/state/StateHandler";
 import DialogueState from "../../../game/state/DialogueState";
 import { canvasSnapshot } from "../../../gfx/utils";
 import BuildingState from "../../../game/state/BuildingState";
+import FlyState from "../../../game/state/FlyState";
 
 export default class Player extends Entity_Mob {
   #actionTimer;
@@ -137,6 +138,12 @@ export default class Player extends Entity_Mob {
                 `Got ${chestObj.loot.name}`
               ));
             }
+          }
+
+          // Fly
+          else if (this.steppingOn(0) === 57) {
+            this.#actionTimer = 0;
+            StateHandler.push(new FlyState);
           }
         }
       }
