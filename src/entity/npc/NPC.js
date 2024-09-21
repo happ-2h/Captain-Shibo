@@ -26,7 +26,7 @@ export default class NPC extends Entity {
     this.#dialogues[0] = new Array(3);
     this.#dialogues[1] = new Array(3);
 
-    this.#dialogues[0][0] = "TEST 0 0";
+    this.#dialogues[0][0] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789>.,;:\'!\"?()+-$";
     this.#dialogues[0][1] = "TEST 0 1";
     this.#dialogues[0][2] = "TEST 0 2";
 

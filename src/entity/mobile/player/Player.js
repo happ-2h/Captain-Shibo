@@ -104,7 +104,8 @@ export default class Player extends Entity_Mob {
             StateHandler.push(new DialogueState(
               canvasSnapshot(),
               go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y),
-              this
+              this,
+              requestedTile === 48 ? 0 : 1
             ));
           }
 
@@ -117,7 +118,7 @@ export default class Player extends Entity_Mob {
             if (doorObj.locked)
               StateHandler.push(new DialogueState(
                 canvasSnapshot(),
-                null, this,
+                null, this, 1,
                 "Door is locked"
               ));
             else
@@ -134,7 +135,7 @@ export default class Player extends Entity_Mob {
               chestObj.open();
               StateHandler.push(new DialogueState(
                 canvasSnapshot(),
-                null, this,
+                null, this, 1,
                 `Got ${chestObj.loot.name}`
               ));
             }

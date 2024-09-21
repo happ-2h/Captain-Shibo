@@ -33,6 +33,8 @@ export default class OBJ_Chest extends Entity {
     this.src.x = 64;
   }
 
+  nextDialogue() {}
+
   get loot()     { return this.#loot; }
   get isClosed() { return this.#isClosed; }
 
