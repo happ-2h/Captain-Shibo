@@ -3,6 +3,7 @@ import GamepadHandler from "../input/GamepadHandler";
 import AssetHandler from "../utils/AssetHandler";
 import { DEBUG, WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
 import GameState from "./state/GameState";
+import Settings from "../utils/Settings";
 import StateHandler from "./state/StateHandler";
 
 export default class Game {
@@ -43,6 +44,7 @@ export default class Game {
   }
 
   init() {
+    Settings.load();
     StateHandler.push(new GameState);
 
     Renderer.init(this.#cnv.getContext("2d", {alpha: false}));

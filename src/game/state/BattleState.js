@@ -48,7 +48,6 @@ export default class BattleState extends State {
 
   init() {
     AudioHandler.stop(this.#prevMusic);
-    AudioHandler.setVolume(this.#bkgdMusic, 0.6);
     AudioHandler.setPlaybackRate(this.#bkgdMusic, 1.1);
     AudioHandler.playMusic(this.#bkgdMusic);
   }

@@ -8,13 +8,17 @@ class _AudioHandler {
   #sounds;
   #trackSources; // Used for stopping audio
 
+  #nowPlaying; // Holds currently playing song ID
+
   constructor() {
     if (instance) throw new Error("AudioHandler singleton reconstructed");
 
     this.#ctx = new AudioContext();
 
-    this.#sounds = [];
-    this.#trackSources = [];
+    this.#sounds = new Map;
+    this.#trackSources = new Map;
+
+    this.#nowPlaying = "";
 
     instance = this;
   }
@@ -28,7 +32,8 @@ class _AudioHandler {
   load(audioID, filename) {
     return new Promise((res, rej) => {
       this.#loadFile(filename).then(track => {
-        this.#sounds[audioID] = new Sound(track);
+        // this.#sounds[audioID] = new Sound(track);
+        this.#sounds.set(audioID, new Sound(track));
         res(`${filename} loaded`);
       }).catch(err => rej(err));
     });
@@ -69,24 +74,24 @@ class _AudioHandler {
    *                           false: don't loop audio
    */
   play(audioID, loop=false) {
-    if (!this.#sounds[audioID]) return;
+    if (!this.#sounds.get(audioID)) return;
 
     if (this.#ctx.state === "suspended") this.#ctx.resume();
 
     // Set up volume
     const gainNode = this.#ctx.createGain();
-    gainNode.gain.value = this.#sounds[audioID].volume;
+    gainNode.gain.value = this.#sounds.get(audioID).volume;
     gainNode.connect(this.#ctx.destination);
 
     // Set up the buffer source
     const trackSource = this.#ctx.createBufferSource();
-    trackSource.buffer = this.#sounds[audioID].buffer;
+    trackSource.buffer = this.#sounds.get(audioID).buffer;
     trackSource.loop = loop;
-    trackSource.playbackRate.value = this.#sounds[audioID].playbackRate;
+    trackSource.playbackRate.value = this.#sounds.get(audioID).playbackRate;
     trackSource.connect(gainNode);
 
     // Save the reference for stopping the sound
-    this.#trackSources[audioID] = trackSource;
+    this.#trackSources.set(audioID, trackSource);
 
     trackSource.start();
   }
@@ -97,10 +102,11 @@ class _AudioHandler {
    * @param {String} audioID - ID of the audio file to play
    */
   playMusic(audioID) {
-    if (!this.#sounds[audioID]) return;
+    if (!this.#sounds.get(audioID)) return;
 
     if (this.#ctx.state === "suspended") this.#ctx.resume();
     this.play(audioID, true);
+    this.#nowPlaying = audioID;
   }
 
   /**
@@ -109,7 +115,14 @@ class _AudioHandler {
    * @param {String} audioID - ID of the audio file to stop
    */
   stop(audioID) {
-    this.#trackSources[audioID]?.stop();
+    this.#trackSources.get(audioID)?.stop();
+  }
+
+  /**
+   * @brief Stops all playing sounds
+   */
+  stopAll() {
+    this.#trackSources.forEach(track => track?.stop());
   }
 
   /**
@@ -121,8 +134,17 @@ class _AudioHandler {
    * @returns null if the audioID is invalid
    */
   setVolume(audioID, value) {
-    if (!this.#sounds[audioID]) return null;
-    this.#sounds[audioID].volume = value;
+    if (!this.#sounds.get(audioID)) return null;
+    this.#sounds.get(audioID).volume = value;
+  }
+
+  /**
+   * @brief Sets the volume of all sounds in the pool
+   *
+   * @param {Number} value - Positive value to set as the volume
+   */
+  setAllVolume(value) {
+    this.#sounds.forEach((sound) => sound.volume = value);
   }
 
   /**
@@ -133,8 +155,8 @@ class _AudioHandler {
    * @returns null if the audioID is invalid
    */
   getVolume(audioID) {
-    if (!this.#sounds[audioID]) return null;
-    return this.#sounds[audioID].volume;
+    if (!this.#sounds.get(audioID)) return null;
+    return this.#sounds.get(audioID).volume;
   }
 
   /**
@@ -146,8 +168,8 @@ class _AudioHandler {
    * @returns null if the audioID is invalid
    */
   setPlaybackRate(audioID, rate) {
-    if (!this.#sounds[audioID]) return null;
-    this.#sounds[audioID].playbackRate = rate;
+    if (!this.#sounds.get(audioID)) return null;
+    this.#sounds.get(audioID).playbackRate = rate;
   }
 
   /**
@@ -159,9 +181,12 @@ class _AudioHandler {
    * @returns null if the audioID is invalid
    */
   getPlaybackRate(audioID) {
-    if (!this.#sounds[audioID]) return null;
-    return this.#sounds[audioID].playbackRate;
+    if (!this.#sounds.get(audioID)) return null;
+    return this.#sounds.get(audioID).playbackRate;
   }
+
+  // Accessors
+  get nowPlaying() { return this.#nowPlaying; }
 };
 
 const AudioHandler = new _AudioHandler;

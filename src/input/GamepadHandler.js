@@ -1,4 +1,5 @@
 import Vec2D from "../math/Vec2D";
+import Settings from "../utils/Settings";
 
 let instance = null;
 
@@ -8,6 +9,11 @@ class _GamepadHandler {
 
   #vendorID;
   #productID;
+
+  /**
+   * TODO
+   * Change to objects for remap
+   */
 
   // D-Pad
   #up;
@@ -75,7 +81,7 @@ class _GamepadHandler {
     this.#right = gamepad.buttons[15].pressed;
 
     // Action buttons
-    this.#action0 = gamepad.buttons[0].pressed;
+    this.#action0 = gamepad.buttons[Settings.gamepadAction].pressed; // TEMP
     this.#action1 = gamepad.buttons[1].pressed;
     this.#action2 = gamepad.buttons[2].pressed;
     this.#action3 = gamepad.buttons[3].pressed;

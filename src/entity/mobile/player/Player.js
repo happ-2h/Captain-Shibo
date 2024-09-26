@@ -8,6 +8,7 @@ import DialogueState from "../../../game/state/DialogueState";
 import { canvasSnapshot } from "../../../gfx/utils";
 import BuildingState from "../../../game/state/BuildingState";
 import FlyState from "../../../game/state/FlyState";
+import SettingsState from "../../../game/state/SettingsState";
 
 export default class Player extends Entity_Mob {
   #actionTimer;
@@ -147,6 +148,11 @@ export default class Player extends Entity_Mob {
             StateHandler.push(new FlyState);
           }
         }
+      }
+
+      if (this.controller.isRequestingPause()) {
+        this.#actionTimer = 0;
+        StateHandler.push(new SettingsState);
       }
     }
   }

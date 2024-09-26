@@ -129,7 +129,6 @@ export default class ForestState extends State {
     );
 
     AudioHandler.stop(this.#prevMusic);
-    AudioHandler.setVolume(this.#bkgdMusic, 0.6);
     AudioHandler.setPlaybackRate(this.#bkgdMusic, 0.8);
     AudioHandler.playMusic(this.#bkgdMusic);
   }
