@@ -8,6 +8,7 @@ import Rectangle from "../../utils/Rectangle";
 import KeyHandler from "../../input/KeyHandler";
 import { max } from "../../math/utils";
 import StateHandler from "./StateHandler";
+import Settings from "../../utils/Settings";
 
 export default class BattleState extends State {
   #playerRef;
@@ -71,7 +72,7 @@ export default class BattleState extends State {
         this.#phase = "victory";
       }
 
-      if (KeyHandler.isDown(90))  {
+      if (KeyHandler.isDown(Settings.keyAction))  {
         this.#phase = "attacking";
         this.#monsterRef.hurt(this.#playerRef.atk);
       }
@@ -126,7 +127,7 @@ export default class BattleState extends State {
         // Easter egg if player hits monster while monster is down
         // console.log("CRUEL");
       }
-      if (KeyHandler.isDown(90)) {
+      if (KeyHandler.isDown(Settings.keyAction)) {
         StateHandler.pop();
       }
     }

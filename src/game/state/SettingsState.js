@@ -6,6 +6,7 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants";
 import State from "./State";
 import AudioHandler from "../../audio/AudioHandler";
 import Vec2D from "../../math/Vec2D";
+import RemapState from "./RemapState";
 
 export default class SettingsState extends State {
   #cursor;
@@ -62,8 +63,8 @@ export default class SettingsState extends State {
       if (KeyHandler.isDown(Settings.keyAction)) {
         this.#cursor.timer = 0;
 
-        // Exit
-        if (this.#cursor.pos.y === 3) StateHandler.pop();
+        if (this.#cursor.pos.y === 2) StateHandler.push(new RemapState);
+        else if (this.#cursor.pos.y === 3) StateHandler.pop();
       }
     }
   }

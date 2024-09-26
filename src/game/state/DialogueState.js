@@ -6,6 +6,7 @@ import GamepadHandler from "../../input/GamepadHandler";
 import KeyHandler from "../../input/KeyHandler";
 import Vec2D from "../../math/Vec2D";
 import Rectangle from "../../utils/Rectangle";
+import Settings from "../../utils/Settings";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants";
 import State from "./State";
 import StateHandler from "./StateHandler";
@@ -84,7 +85,7 @@ export default class DialogueState extends State {
     this.#inputTimer += dt;
 
     if (this.#inputTimer >= this.#inputDelay) {
-      if (KeyHandler.isDown(90) || GamepadHandler.action0) {
+      if (KeyHandler.isDown(Settings.keyAction) || GamepadHandler.action0) {
         this.#inputTimer = 0;
 
         this.#characters = [];

@@ -2,6 +2,7 @@ let instance = null;
 
 class _KeyHandler {
   #keys;
+  #lastPressed; // Last pressed key code
 
   constructor() {
     if (instance) throw new Error("KeyHandler singleton reconstructed");
@@ -11,11 +12,15 @@ class _KeyHandler {
     onkeydown = this.#keyDown.bind(this);
     onkeyup   = this.#keyDown.bind(this);
 
+    this.#lastPressed = -1;
+
     instance = this;
   }
 
   #keyDown(e) {
     e.preventDefault();
+
+    if (e.type === "keydown") this.#lastPressed = e.keyCode;
 
     /*
      * true:  key is down
@@ -34,6 +39,16 @@ class _KeyHandler {
   isDown(keycode) {
     return this.#keys[keycode];
   }
+
+  /**
+   * @brief Resets the last pressed key
+   */
+  clearLast() {
+    this.#lastPressed = -1;
+  }
+
+  // Accessors
+  get lastPressed() { return this.#lastPressed; }
 };
 
 const KeyHandler = new _KeyHandler;

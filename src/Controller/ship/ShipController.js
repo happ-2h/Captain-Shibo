@@ -1,32 +1,33 @@
 import GamepadHandler from "../../input/GamepadHandler";
 import KeyHandler from "../../input/KeyHandler";
+import Settings from "../../utils/Settings";
 import Controller from "../Controller";
 
 export default class ShipController extends Controller {
   constructor() { super(); }
 
   isRequestingUp() {
-    return KeyHandler.isDown(38) ||
+    return KeyHandler.isDown(Settings.keyUp) ||
            GamepadHandler.isDpadUp();
   }
 
   isRequestingDown() {
-    return KeyHandler.isDown(40) ||
+    return KeyHandler.isDown(Settings.keyDown) ||
            GamepadHandler.isDpadDown();
   }
 
   isRequestingLeft() {
-    return KeyHandler.isDown(37) ||
+    return KeyHandler.isDown(Settings.keyLeft) ||
            GamepadHandler.isDpadLeft();
   }
 
   isRequestingRight() {
-    return KeyHandler.isDown(39) ||
+    return KeyHandler.isDown(Settings.keyRight) ||
            GamepadHandler.isDpadRight();
   }
 
   isRequestingA() {
-    return KeyHandler.isDown(90) ||
+    return KeyHandler.isDown(Settings.keyAction) ||
            GamepadHandler.action0;
   }
 
