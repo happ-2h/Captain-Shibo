@@ -6,9 +6,10 @@ export default class Entity {
   #dst; // Destination rectangle
   #src; // Blit image source rectangle
 
-  #map;      // Map the entity belongs to
-  #facing;   // Facing direction
-  #status;   // What the enitity is doing
+  #map;        // Map the entity belongs to
+  #facing;     // Facing direction
+  #prevFacing; // Previous facing direction
+  #status;     // What the enitity is doing
 
   // Physics
   #dir;      // Directional vector
@@ -49,17 +50,18 @@ export default class Entity {
   }
 
   // Accessors
-  get dst()      { return this.#dst; }
-  get src()      { return this.#src; }
+  get dst()        { return this.#dst; }
+  get src()        { return this.#src; }
 
-  get map()      { return this.#map; }
-  get facing()   { return this.#facing; }
-  get status()   { return this.#status; }
+  get map()        { return this.#map; }
+  get facing()     { return this.#facing; }
+  get prevFacing() { return this.#prevFacing; }
+  get status()     { return this.#status; }
 
-  get dir()      { return this.#dir; }
-  get accel()    { return this.#accel; }
-  get vel()      { return this.#vel; }
-  get friction() { return this.#friction; }
+  get dir()        { return this.#dir; }
+  get accel()      { return this.#accel; }
+  get vel()        { return this.#vel; }
+  get friction()   { return this.#friction; }
 
   get animation()     { return this.#animation; }
   get shouldAnimate() { return this.#shouldAnimate; }
@@ -68,9 +70,10 @@ export default class Entity {
   set dst(dst) { this.#dst = dst; }
   set src(src) { this.#src = src; }
 
-  set map(map)       { this.#map = map; }
-  set facing(facing) { this.#facing = facing; }
-  set status(status) { this.#status = status; }
+  set map(map)           { this.#map = map; }
+  set facing(facing)     { this.#facing = facing; }
+  set prevFacing(facing) { this.#prevFacing = facing; }
+  set status(status)     { this.#status = status; }
 
   set animation(animation)  { this.#animation = animation; }
   set shouldAnimate(should) { this.#shouldAnimate = should; }

@@ -31,6 +31,7 @@ export default class Player extends Entity_Mob {
     this.animation = new Animation([1,2,1,3], 10); // TEMP
     this.shouldAnimate = true;
     this.facing = "down";
+    this.prevFacing = this.facing;
 
     // Battle
     this.status = "roaming";
@@ -211,6 +212,25 @@ export default class Player extends Entity_Mob {
   }
 
   #handleAnimation(dt) {
+    if (this.facing !== this.prevFacing) {
+      switch(this.facing) {
+        case "left":
+          this.animation.setAnimation([7,8,7,9], 10);
+          break;
+        case "right":
+          this.animation.setAnimation([10,11,10,12], 10);
+          break;
+        case "up":
+          this.animation.setAnimation([4,5,4,6], 10);
+          break;
+        case "down":
+          this.animation.setAnimation([1,2,1,3], 10);
+          break;
+      }
+
+      this.prevFacing = this.facing;
+    }
+
     if (
       this.status === "roaming" &&
       (this.controller.isRequestingUp()   ||
