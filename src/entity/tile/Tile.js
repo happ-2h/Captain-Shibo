@@ -9,8 +9,8 @@ export default class Tile extends Entity {
   constructor(x=0, y=0, type=0, solid=true, map=null) {
     super(x, y, map);
 
-    this.src.x = (type&0xF)<<4;
-    this.src.y = (type>>4) <<4;
+    this.src.x = (type&0x1F)<<4;
+    this.src.y = (type>>5)  <<4;
 
     this.#type = type;
     this.#isSolid = solid;

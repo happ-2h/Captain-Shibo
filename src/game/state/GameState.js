@@ -21,13 +21,13 @@ export default class GameState extends State {
   onExit()  {}
 
   init() {
-    this.map = "test_map";
+    this.map = "town_map";
 
     // Setup world objects
     MapHandler.getMap(this.map).tiles.forEach(row => {
       row.forEach(tile => {
         if (tile) {
-          if (tile.type === 1) {
+          if (tile.type === 29) {
             this.gameObjects.push(new Player(
               tile.dst.pos.x * TILE_SIZE,
               tile.dst.pos.y * TILE_SIZE,

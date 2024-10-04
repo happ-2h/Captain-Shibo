@@ -42,7 +42,7 @@ export default class Map {
           if (tileID > 0) {
             // TEMP format
             switch(tileID) {
-              case 1: // Player
+              /*case 1: // Player
                 this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
                 break;
               case 32: // TEMP solid
@@ -60,7 +60,16 @@ export default class Map {
                 break;
               case 103: // TEMP door
                 this.#tiles[y][x] = new Tile_Door(x, y, tileID, true, this.#id, ["building_test"], false);
-                break;
+                break;*/
+
+              // Special tiles
+              // - Player (facing down)
+              case 29: this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id); break;
+              // Basic tiles
+              // - Non-solids
+              // -- Arrows
+              // - Solids
+              // -- Doors
               default: this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id); break;
             }
           }
@@ -91,8 +100,8 @@ export default class Map {
           if (tileID > 0) {
             Renderer.image(
               "spritesheet",
-              (tileID&0xF)<<4,
-              (tileID>>4)<<4,
+              (tileID&0x1F)<<4,
+              (tileID>>5)<<4,
               TILE_SIZE, TILE_SIZE,
               x*TILE_SIZE,
               y*TILE_SIZE,
@@ -127,8 +136,8 @@ export default class Map {
         if (tileID > 0) {
           Renderer.image(
             "spritesheet",
-            (tileID&0xF)<<4,
-            (tileID>>4)<<4,
+            (tileID&0x1F)<<4,
+            (tileID>>5)<<4,
             TILE_SIZE, TILE_SIZE,
             x*TILE_SIZE,
             y*TILE_SIZE,

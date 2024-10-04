@@ -28,7 +28,7 @@ export default class Player extends Entity_Mob {
     this.src.x = 16;
 
     // Animations
-    this.animation = new Animation([1,2,1,3], 10); // TEMP
+    this.animation = new Animation([29,30,29,31], 10); // TEMP
     this.shouldAnimate = true;
     this.facing = "down";
     this.prevFacing = this.facing;
@@ -215,16 +215,16 @@ export default class Player extends Entity_Mob {
     if (this.facing !== this.prevFacing) {
       switch(this.facing) {
         case "left":
-          this.animation.setAnimation([7,8,7,9], 10);
+          this.animation.setAnimation([93,94,93,95], 10);
           break;
         case "right":
-          this.animation.setAnimation([10,11,10,12], 10);
+          this.animation.setAnimation([125,126,125,127], 10);
           break;
         case "up":
-          this.animation.setAnimation([4,5,4,6], 10);
+          this.animation.setAnimation([61,62,61,63], 10);
           break;
         case "down":
-          this.animation.setAnimation([1,2,1,3], 10);
+          this.animation.setAnimation([29,30,29,31], 10);
           break;
       }
 
@@ -242,8 +242,8 @@ export default class Player extends Entity_Mob {
       this.animation.update(dt);
     else this.animation.currentFrame = 0;
 
-    this.src.pos.x = (this.animation.currentFrame&0xF)<<4;
-    this.src.pos.y = (this.animation.currentFrame>>4)<<4;
+    this.src.pos.x = (this.animation.currentFrame&0x1F)<<4;
+    this.src.pos.y = (this.animation.currentFrame>>5)<<4;
   }
 
   steppingOn(layer=0) {
