@@ -55,7 +55,7 @@ export default class DialogueState extends State {
     this.#rect = new Rectangle(0, SCREEN_HEIGHT - 40, SCREEN_WIDTH - 8, 32);
 
     this.#characters = [];
-    this.#letterSpeed = 0.1;
+    this.#letterSpeed = 0.05;
     this.#letterTimer = 0;
     this.#currentLetterIndex = 0;
     this.#letterLocation = Vec2D.zero();
@@ -143,7 +143,7 @@ export default class DialogueState extends State {
     // - Top left
     Renderer.image(
       "spritesheet",
-      0 + (this.#frame * 24), 216, 8, 8,
+      0 + (this.#frame * 24), 472, 8, 8,
       this.#rect.x,
       this.#rect.y,
       8, 8
@@ -151,7 +151,7 @@ export default class DialogueState extends State {
     // - Top right
     Renderer.image(
       "spritesheet",
-      16 + (this.#frame * 24), 216, 8, 8,
+      16 + (this.#frame * 24), 472, 8, 8,
       this.#rect.x + this.#rect.w,
       this.#rect.y,
       8, 8
@@ -159,7 +159,7 @@ export default class DialogueState extends State {
     // - Bottom left
     Renderer.image(
       "spritesheet",
-      0 + (this.#frame * 24), 232, 8, 8,
+      0 + (this.#frame * 24), 488, 8, 8,
       this.#rect.x,
       this.#rect.y + this.#rect.h,
       8, 8
@@ -167,7 +167,7 @@ export default class DialogueState extends State {
     // - Bottom right
     Renderer.image(
       "spritesheet",
-      16 + (this.#frame * 24), 232, 8, 8,
+      16 + (this.#frame * 24), 488, 8, 8,
       this.#rect.x + this.#rect.w,
       this.#rect.y + this.#rect.h,
       8, 8
@@ -175,7 +175,7 @@ export default class DialogueState extends State {
     // - Top center
     Renderer.image(
       "spritesheet",
-      8 + (this.#frame * 24), 216, 8, 8,
+      8 + (this.#frame * 24), 472, 8, 8,
       this.#rect.x + 8,
       this.#rect.y,
       this.#rect.w - 8,
@@ -184,7 +184,7 @@ export default class DialogueState extends State {
     // - Bottom center
     Renderer.image(
       "spritesheet",
-      8 + (this.#frame * 24), 232, 8, 8,
+      8 + (this.#frame * 24), 488, 8, 8,
       this.#rect.x + 8,
       this.#rect.y + this.#rect.h,
       this.#rect.w - 8,
@@ -193,7 +193,7 @@ export default class DialogueState extends State {
     // - Left center
     Renderer.image(
       "spritesheet",
-      0 + (this.#frame * 24), 224, 8, 8,
+      0 + (this.#frame * 24), 480, 8, 8,
       this.#rect.x,
       this.#rect.y + 8,
       8,
@@ -202,7 +202,7 @@ export default class DialogueState extends State {
     // - Right center
     Renderer.image(
       "spritesheet",
-      16 + (this.#frame * 24), 224, 8, 8,
+      16 + (this.#frame * 24), 480, 8, 8,
       this.#rect.x + this.#rect.w,
       this.#rect.y + 8,
       8,
@@ -211,7 +211,7 @@ export default class DialogueState extends State {
     // - Background
     Renderer.image(
       "spritesheet",
-      8 + (this.#frame * 24), 224, 8, 8,
+      8 + (this.#frame * 24), 480, 8, 8,
       this.#rect.x + 8,
       this.#rect.y + 8,
       this.#rect.w - 8,

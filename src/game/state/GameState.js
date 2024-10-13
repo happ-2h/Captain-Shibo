@@ -2,6 +2,9 @@ import AudioHandler from "../../audio/AudioHandler";
 import Camera from "../../camera/Camera";
 import Player from "../../entity/mobile/player/Player";
 import NPC_Basic from "../../entity/npc/NPC_basic";
+import NPC_Boy_Weird from "../../entity/npc/NPC_Boy_Weird";
+import NPC_Girl_Green from "../../entity/npc/NPC_Girl_Green";
+import NPC_Girl_Purple from "../../entity/npc/NPC_Girl_Purple";
 import OBJ_Sign from "../../entity/object/OBJ_Sign";
 import Tile from "../../entity/tile/Tile";
 import Renderer from "../../gfx/Renderer";
@@ -53,6 +56,27 @@ export default class GameState extends State {
               tile.dst.pos.y * TILE_SIZE,
               this.map,
               "Sign Test"
+            ));
+          }
+          else if (tile.type === 28) {
+            this.gameObjects.push(new NPC_Girl_Green(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map
+            ));
+          }
+          else if (tile.type === 92) {
+            this.gameObjects.push(new NPC_Girl_Purple(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map
+            ));
+          }
+          else if (tile.type === 156) {
+            this.gameObjects.push(new NPC_Boy_Weird(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map
             ));
           }
           else {

@@ -100,14 +100,27 @@ export default class Player extends Entity_Mob {
         requestedTile = MapHandler.getMap(this.map).getTileObject(_x, _y)?.type;
 
         if (this.#actionTimer >= this.#actionDelay) {
-          // NPC_Basic or OBJ_Sign
-          if (requestedTile === 48 || requestedTile === 33) {
+          // NPCs or OBJ_Sign
+          if (
+            requestedTile === 48 ||
+            // NPCs
+            requestedTile === 28 ||
+            requestedTile === 92 ||
+            requestedTile === 156 ||
+            requestedTile === 33
+          ) {
             this.#actionTimer = 0;
+            const frameNumber = (
+              requestedTile === 28 ||
+              requestedTile === 92 ||
+              requestedTile === 156
+            ) ? 0 : 1;
+
             StateHandler.push(new DialogueState(
               canvasSnapshot(),
               go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y),
               this,
-              requestedTile === 48 ? 0 : 1
+              frameNumber
             ));
           }
 

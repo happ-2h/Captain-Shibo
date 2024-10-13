@@ -21,16 +21,16 @@ export default class Tile_Char extends Tile {
     // Letter
     if (ch >= 97 && ch <= 122) {
       this.src.x = 8 * (ch - 'a'.charCodeAt(0));
-      this.src.y = 240;
+      this.src.y = 496;
     }
     // Number
     else if (ch >= 48 && ch <= 57) {
       this.src.x = 8 * (ch - '0'.charCodeAt(0));
-      this.src.y = 248;
+      this.src.y = 504;
     }
     // Special character
     else {
-      this.src.y = 248;
+      this.src.y = 504;
 
       switch(char) {
         case '.':  this.src.x =  80; break;
