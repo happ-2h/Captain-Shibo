@@ -63,13 +63,11 @@ export default class Map {
                 break;*/
 
               // Special tiles
-              // - Player (facing down)
-              case 29: this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id); break;
-              // Basic tiles
-              // - Non-solids
-              // -- Arrows
-              // - Solids
-              // -- Doors
+              case 29:  // Player (facing down)
+              case 673: // Arrow up
+                this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
+                break;
+              // Basic solid tiles
               default: this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id); break;
             }
           }

@@ -79,6 +79,30 @@ export default class GameState extends State {
               this.map
             ));
           }
+          else if (tile.type == 640 || tile.type === 641) {
+            let text = "forgot text";
+            let sx = 0;
+
+            if (tile.dst.pos.x === 13 && tile.dst.pos.y === 3) {
+              text = "To felis forest";
+            }
+            else if (tile.dst.pos.x === 8 && tile.dst.pos.y === 8) {
+              text = "ship shop";
+            }
+            else if (tile.dst.pos.x === 19 && tile.dst.pos.y === 8) {
+              text = "          +-+-+-arcade-+-+-+>>          under construction";
+              sx = 16;
+            }
+
+            this.gameObjects.push(new OBJ_Sign(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              sx, 320,
+              this.map,
+              text.toString()
+            ))
+
+          }
           else {
             this.gameObjects.push(new Tile(
               tile.dst.pos.x * TILE_SIZE,
@@ -111,7 +135,7 @@ export default class GameState extends State {
     });
 
     // Go into forest
-    if (playerRef.steppingOn(0) === 99 || playerRef.steppingOn(1) === 99) {
+    if (playerRef.steppingOn(0) === 673 || playerRef.steppingOn(1) === 673) {
       StateHandler.push(new ForestState(playerRef, "bkgd_forest_test", "bkgd_test"));
     }
   }

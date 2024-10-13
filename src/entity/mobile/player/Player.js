@@ -107,6 +107,9 @@ export default class Player extends Entity_Mob {
             requestedTile === 28 ||
             requestedTile === 92 ||
             requestedTile === 156 ||
+            // Signs
+            requestedTile === 640 ||
+            requestedTile === 641 ||
             requestedTile === 33
           ) {
             this.#actionTimer = 0;

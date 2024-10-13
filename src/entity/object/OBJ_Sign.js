@@ -6,11 +6,11 @@ export default class OBJ_Sign extends Entity {
   #description;
   #done;
 
-  constructor(x=0, y=0, map=null, description="") {
+  constructor(x=0, y=0, sx=0, sy=0, map=null, description="") {
     super(x, y, map);
 
-    this.src.x = 16;
-    this.src.y = 32;
+    this.src.x = sx;
+    this.src.y = sy;
 
     this.#description = description.toString();
     this.#done = false;
