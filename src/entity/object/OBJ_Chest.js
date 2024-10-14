@@ -13,8 +13,8 @@ export default class OBJ_Chest extends Entity {
     this.#loot = loot;
     this.#isClosed = true;
 
-    this.src.x = 48;
-    this.src.y = 32;
+    this.src.x = 32;
+    this.src.y = 320;
   }
 
   init() {}
@@ -30,7 +30,7 @@ export default class OBJ_Chest extends Entity {
   open() {
     AudioHandler.play("open_chest");
     this.#isClosed = false;
-    this.src.x = 64;
+    this.src.x = 48;
   }
 
   nextDialogue() {}

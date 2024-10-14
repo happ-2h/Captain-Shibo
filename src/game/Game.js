@@ -32,6 +32,7 @@ export default class Game {
     AssetHandler.poll("building_test", "building_test.json");
     AssetHandler.poll("space_bkgd", "space_bkgd.json");*/
     AssetHandler.poll("town_map", "town_map.json");
+    AssetHandler.poll("forest_felis", "forest_felis.json");
     // - Sounds
     AssetHandler.poll("notif", "notif.wav");
     AssetHandler.poll("open_chest", "open_chest.wav");

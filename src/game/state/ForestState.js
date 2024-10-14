@@ -31,6 +31,9 @@ export default class ForestState extends State {
   #encounterPercentage;
   #encounterTimer;
 
+  // Chest location for removal
+  #chestLoc;
+
   #bkgdMusic;
   #prevMusic;
 
@@ -52,6 +55,8 @@ export default class ForestState extends State {
     this.#prevPos.y = 32;
     this.#prevMap = player.map;
 
+    this.#chestLoc = { x: 0, y: 0 };
+
     this.#bkgdMusic = bkgdmusic;
     this.#prevMusic = prevmusic;
   }
@@ -65,17 +70,23 @@ export default class ForestState extends State {
     this.#player.facing = "down";
     this.#player.recover();
 
+    // Remove chest object
+    MapHandler.getMap(this.map).removeTileObj(
+      this.#chestLoc.x,
+      this.#chestLoc.y
+    );
+
     AudioHandler.stop(this.#bkgdMusic);
     AudioHandler.playMusic(this.#prevMusic);
   }
 
   init() {
-    this.map = "test_forest";
+    this.map = "forest_felis";
 
     MapHandler.getMap(this.map).tiles.forEach(row => {
       row.forEach(tile => {
         if (tile) {
-          if (tile.type === 1) {
+          if (tile.type === 29) {
             this.#player.dst.pos.set(
               tile.dst.pos.x * TILE_SIZE,
               tile.dst.pos.y * TILE_SIZE
@@ -108,12 +119,15 @@ export default class ForestState extends State {
 
     // Chest location
     const loc = [
-      {x: 2, y: 1},
-      {x: 22, y: 3},
-      {x: 29, y: 3},
-      {x: 14, y: 11},
-      {x: 2, y: 16},
+      {x:  2, y:  2},
+      {x:  7, y:  3},
+      {x:  8, y: 16},
+      {x: 25, y:  3},
+      {x: 26, y: 15}
     ][randInt(0, 4)];
+
+    this.#chestLoc.x = loc.x;
+    this.#chestLoc.y = loc.y;
 
     this.gameObjects.push(new OBJ_Chest(
       loc.x * TILE_SIZE,
@@ -125,7 +139,7 @@ export default class ForestState extends State {
     MapHandler.getMap(this.map).setTileObj(
       loc.x,
       loc.y,
-      35
+      642
     );
 
     AudioHandler.stop(this.#prevMusic);
@@ -144,7 +158,7 @@ export default class ForestState extends State {
       else go.update(dt);
     });
 
-    this.#encounterTimer += dt;
+    // this.#encounterTimer += dt;
 
     if (this.#encounterTimer >= this.#encounterRate) {
       this.#encounterTimer = 0;
@@ -166,7 +180,7 @@ export default class ForestState extends State {
     }
 
     // Exit
-    if (this.#player.steppingOn(0) === 100 || this.#player.steppingOn(1) === 100)
+    if (this.#player.steppingOn(0) === 674 || this.#player.steppingOn(1) === 674)
       StateHandler.pop();
   }
 

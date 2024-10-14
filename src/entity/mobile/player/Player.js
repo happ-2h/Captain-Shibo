@@ -144,7 +144,7 @@ export default class Player extends Entity_Mob {
           }
 
           // Chest
-          else if (requestedTile === 35) {
+          else if (requestedTile === 642) {
             this.#actionTimer = 0;
 
             const chestObj = go.find(g => g.dst.pos.x/TILE_SIZE === _x && g.dst.pos.y/TILE_SIZE === _y);

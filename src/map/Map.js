@@ -65,6 +65,7 @@ export default class Map {
               // Special tiles
               case 29:  // Player (facing down)
               case 673: // Arrow up
+              case 674: // Arrow down
                 this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
                 break;
               // Basic solid tiles
@@ -215,6 +216,20 @@ export default class Map {
 
     if (x >= 0 && x < this.#dim.x && y >= 0 && y < this.#dim.y)
       this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
+  }
+
+  /**
+   * @brief Remove an object from the map
+   *
+   * @param {Number} x - Grid x-position
+   * @param {Number} y - Grid y-position
+   */
+  removeTileObj(x=0, y=0) {
+    x |= 0;
+    y |= 0;
+
+    if (x >= 0 && x < this.#dim.x && y >= 0 && y < this.#dim.y)
+      this.#tiles[y][x] = null;
   }
 
   /**
