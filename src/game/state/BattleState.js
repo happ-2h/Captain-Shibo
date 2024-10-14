@@ -27,6 +27,8 @@ export default class BattleState extends State {
   constructor(player=null, monster=null, bkgdMusic=null, prevMusic=null) {
     super();
 
+    this.map = "battle_forest_bkgd";
+
     this.#playerRef  = player;
     this.#monsterRef = monster;
 
@@ -136,8 +138,8 @@ export default class BattleState extends State {
   render() {
     Renderer.clear(WINDOW_WIDTH, WINDOW_HEIGHT);
     Renderer.setOffset(this.camera.x, this.camera.y);
-    MapHandler.drawMapLayer("test_battleBKGD", new Rectangle(this.camera.x, this.camera.y, 21, 13), 0);
-    MapHandler.drawMapLayer("test_battleBKGD", new Rectangle(this.camera.x, this.camera.y, 21, 13), 1);
+    MapHandler.drawMapLayer(this.map , new Rectangle(this.camera.x, this.camera.y, 21, 13), 0);
+    MapHandler.drawMapLayer(this.map , new Rectangle(this.camera.x, this.camera.y, 21, 13), 1);
 
     this.#monsterRef.draw();
 

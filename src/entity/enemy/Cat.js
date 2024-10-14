@@ -2,7 +2,7 @@ import Entity from "../Entity";
 import Renderer from "../../gfx/Renderer";
 import { DEBUG, SCREEN_HEIGHT } from "../../game/constants";
 import Vec2D from "../../math/Vec2D";
-import { max } from "../../math/utils";
+import { max, randInt } from "../../math/utils";
 
 export default class Cat extends Entity {
   // Battle
@@ -26,7 +26,7 @@ export default class Cat extends Entity {
   #currentLookup;
   #originalPos;
 
-  constructor(x=0, y=0, hp=0, atk=0, def=0) {
+  constructor(x=0, y=0, hp=0, atk=0, def=0, type=0) {
     super(x, y, "test_forest");
 
     // Stats
@@ -52,8 +52,20 @@ export default class Cat extends Entity {
     this.#currentLookup = 0;
     this.#lookup = [-10, 10, -6, 6, -3, 3, -2, 2, -1, 1]; // Shake effect
 
-    this.src.pos.x = 0;
-    this.src.pos.y = 64;
+    this.src.pos.x = 400;
+    this.src.pos.y = type<<4;
+  }
+
+  static generateCat(x=0, y=0) {
+    const catType = randInt(1, 3);
+
+    return new Cat(
+      x, y,
+      catType * 10 + randInt(3, 8),
+      catType,
+      catType + 1,
+      catType - 1
+    );
   }
 
   init() {
@@ -105,7 +117,7 @@ export default class Cat extends Entity {
     this.#frameTimer += dt;
     if (this.status !== "dead" && this.#frameTimer >= this.#frameDelay) {
       this.#frameTimer = 0;
-      this.src.pos.x = this.src.pos.x === 0 ? 16 : 0;
+      this.src.pos.x = this.src.pos.x === 400 ? 416 : 400;
     }
   }
 
@@ -125,7 +137,7 @@ export default class Cat extends Entity {
 
   kill() {
     this.status = "dead";
-    this.src.pos.x = 32;
+    this.src.pos.x = 432;
   }
 
   decide() {

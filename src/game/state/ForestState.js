@@ -158,7 +158,7 @@ export default class ForestState extends State {
       else go.update(dt);
     });
 
-    // this.#encounterTimer += dt;
+    this.#encounterTimer += dt;
 
     if (this.#encounterTimer >= this.#encounterRate) {
       this.#encounterTimer = 0;
@@ -167,10 +167,9 @@ export default class ForestState extends State {
         StateHandler.push(
           new BattleState(
             this.#player,
-            new Cat(
+            Cat.generateCat(
               (SCREEN_WIDTH>>1)  - (TILE_SIZE>>1),
-              (SCREEN_HEIGHT>>1) - (TILE_SIZE>>1),
-              5, 1, 5
+              (SCREEN_HEIGHT>>1) - (TILE_SIZE>>1)
             ),
             "battlemusic",
             this.#bkgdMusic
