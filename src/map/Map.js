@@ -75,6 +75,9 @@ export default class Map {
               case 914:
                 this.#tiles[y][x] = new Tile_Door(x, y, tileID, true, this.#id, ["huskyhome"], false);
                 break;
+              case 902: // Shed
+                this.#tiles[y][x] = new Tile_Door(x, y, tileID, true, this.#id, [], true);
+                break;
               // Basic solid tiles
               default: this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id); break;
             }

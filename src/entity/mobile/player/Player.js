@@ -151,6 +151,21 @@ export default class Player extends Entity_Mob {
             else
               StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
           }
+          // - Shed
+          else if (requestedTile === 902) {
+            this.#actionTimer = 0;
+
+            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
+
+            if (doorObj.locked)
+              StateHandler.push(new DialogueState(
+                canvasSnapshot(),
+                null, this, 1,
+                "Door is locked"
+              ));
+            else
+              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
+          }
           else if (requestedTile === 103) {
             this.#actionTimer = 0;
 
