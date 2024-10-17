@@ -108,6 +108,7 @@ export default class Player extends Entity_Mob {
             requestedTile === 92  ||
             requestedTile === 156 ||
             requestedTile === 60  ||
+            requestedTile === 124 ||
             // Signs
             requestedTile === 640 ||
             requestedTile === 641 ||
@@ -115,8 +116,9 @@ export default class Player extends Entity_Mob {
           ) {
             this.#actionTimer = 0;
             const frameNumber = (
-              requestedTile === 28 ||
-              requestedTile === 92 ||
+              requestedTile === 28  ||
+              requestedTile === 92  ||
+              requestedTile === 124 ||
               requestedTile === 156
             ) ? 0 : 1;
 
@@ -128,15 +130,22 @@ export default class Player extends Entity_Mob {
             ));
           }
 
-          // Doors
+          // Doors TODO make fuction
           // - Ship Shop
           else if (requestedTile === 897) {
             this.#actionTimer = 0;
 
             const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
 
-            console.log(doorObj);
+            if (doorObj.locked) {}
+            else
+              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
+          }
+          // - Husky home
+          else if (requestedTile === 914) {
+            this.#actionTimer = 0;
 
+            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
 
             if (doorObj.locked) {}
             else

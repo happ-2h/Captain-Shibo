@@ -9,6 +9,7 @@ import Tile from "../../entity/tile/Tile";
 import StateHandler from "./StateHandler";
 import AudioHandler from "../../audio/AudioHandler";
 import NPC_Boy_ShopOwner from "../../entity/npc/NPC_Boy_ShopOwner";
+import NPC_Dog_Husky from "../../entity/npc/NPC_Dog_Husky";
 
 export default class BuildingState extends State {
   #player;
@@ -73,6 +74,14 @@ export default class BuildingState extends State {
           // - Shop owner
           else if (tile.type === 60) {
             this.gameObjects.push(new NPC_Boy_ShopOwner(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map
+            ));
+          }
+          // - Husky
+          else if (tile.type === 124) {
+            this.gameObjects.push(new NPC_Dog_Husky(
               tile.dst.pos.x * TILE_SIZE,
               tile.dst.pos.y * TILE_SIZE,
               this.map
