@@ -7,6 +7,7 @@ import NPC_Girl_Green from "../../entity/npc/NPC_Girl_Green";
 import NPC_Girl_Purple from "../../entity/npc/NPC_Girl_Purple";
 import OBJ_Sign from "../../entity/object/OBJ_Sign";
 import Tile from "../../entity/tile/Tile";
+import Tile_Door from "../../entity/tile/Tile_Door";
 import Renderer from "../../gfx/Renderer";
 import MapHandler from "../../map/MapHandler";
 import Rectangle from "../../utils/Rectangle";
@@ -79,6 +80,7 @@ export default class GameState extends State {
               this.map
             ));
           }
+          // Signs
           else if (tile.type == 640 || tile.type === 641) {
             let text = "forgot text";
             let sx = 0;

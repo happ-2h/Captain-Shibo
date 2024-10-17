@@ -8,6 +8,7 @@ import Rectangle from "../../utils/Rectangle";
 import Tile from "../../entity/tile/Tile";
 import StateHandler from "./StateHandler";
 import AudioHandler from "../../audio/AudioHandler";
+import NPC_Boy_ShopOwner from "../../entity/npc/NPC_Boy_ShopOwner";
 
 export default class BuildingState extends State {
   #player;
@@ -50,7 +51,7 @@ export default class BuildingState extends State {
     MapHandler.getMap(this.map).tiles.forEach(row => {
       row.forEach(tile => {
         if (tile) {
-          if (tile.type === 1) {
+          if (tile.type === 29) {
             this.#player.dst.pos.set(
               tile.dst.pos.x * TILE_SIZE,
               tile.dst.pos.y * TILE_SIZE
@@ -67,6 +68,15 @@ export default class BuildingState extends State {
               15, 10,
               this.map
             );
+          }
+          // NPCs
+          // - Shop owner
+          else if (tile.type === 60) {
+            this.gameObjects.push(new NPC_Boy_ShopOwner(
+              tile.dst.pos.x * TILE_SIZE,
+              tile.dst.pos.y * TILE_SIZE,
+              this.map
+            ));
           }
           else {
             this.gameObjects.push(new Tile(
@@ -89,7 +99,7 @@ export default class BuildingState extends State {
   update(dt) {
     this.gameObjects.forEach(go => {
       if (go instanceof Player) {
-        go.update(go, dt);
+        go.update(this.gameObjects, dt);
 
         this.camera.vfocus(go.dst.pos);
         this.camera.update(dt);
@@ -99,7 +109,7 @@ export default class BuildingState extends State {
 
     // Handle building specific tiles
     // - Exit
-    if (this.#player.steppingOn(0) === 100 || this.#player.steppingOn(1) === 100) {
+    if (this.#player.steppingOn(0) === 674 || this.#player.steppingOn(1) === 674) {
       this.#player.dst.pos.copy(this.#prevPos);
       this.#player.targetTile.copy(this.#prevPos);
       this.#player.map = this.#prevMap;

@@ -102,11 +102,12 @@ export default class Player extends Entity_Mob {
         if (this.#actionTimer >= this.#actionDelay) {
           // NPCs or OBJ_Sign
           if (
-            requestedTile === 48 ||
+            requestedTile === 48  ||
             // NPCs
-            requestedTile === 28 ||
-            requestedTile === 92 ||
+            requestedTile === 28  ||
+            requestedTile === 92  ||
             requestedTile === 156 ||
+            requestedTile === 60  ||
             // Signs
             requestedTile === 640 ||
             requestedTile === 641 ||
@@ -127,7 +128,20 @@ export default class Player extends Entity_Mob {
             ));
           }
 
-          // Door
+          // Doors
+          // - Ship Shop
+          else if (requestedTile === 897) {
+            this.#actionTimer = 0;
+
+            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
+
+            console.log(doorObj);
+
+
+            if (doorObj.locked) {}
+            else
+              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
+          }
           else if (requestedTile === 103) {
             this.#actionTimer = 0;
 
