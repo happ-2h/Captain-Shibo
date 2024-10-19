@@ -22,8 +22,8 @@ export default class Bullet extends Entity_Mob {
     this.#maxFrames = 2;
     this.#kill = false;
 
-    this.src.pos.x = 160;
-    this.src.pos.y = 24;
+    this.src.pos.x = 0;
+    this.src.pos.y = 72;
     this.src.dim.x = 4;
     this.src.dim.y = 4;
     this.dst.dim.x = 4;

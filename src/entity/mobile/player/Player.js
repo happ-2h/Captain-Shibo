@@ -198,7 +198,7 @@ export default class Player extends Entity_Mob {
           }
 
           // Fly
-          else if (this.steppingOn(0) === 57) {
+          else if (this.steppingOn(0) === 672) {
             this.#actionTimer = 0;
             StateHandler.push(new FlyState);
           }

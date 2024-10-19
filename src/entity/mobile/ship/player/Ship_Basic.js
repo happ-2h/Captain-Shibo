@@ -16,8 +16,8 @@ export default class Ship_Basic extends Ship {
 
     this.dst.dim.x = 16;
     this.dst.dim.y = 16;
-    this.src.pos.x = 160;
-    this.src.pos.y = 48;
+    this.src.pos.x = 0;
+    this.src.pos.y = 96;
     this.src.dim.x = 32;
     this.src.dim.y = 32;
 
@@ -108,7 +108,7 @@ export default class Ship_Basic extends Ship {
 
     Renderer.image(
       "spritesheet",
-      192, 48 + (this.#thrustFrame * 8), 8, 8,
+      16, 64 + (this.#thrustFrame * 8), 8, 8,
       this.dst.pos.x + 4,
       this.dst.pos.y + 15,
       8, 8

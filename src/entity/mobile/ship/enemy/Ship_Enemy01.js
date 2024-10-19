@@ -148,7 +148,7 @@ export default class Ship_Enemy01 extends Ship {
       if (!this.#shootingLaser) {
         Renderer.image(
           "spritesheet",
-          208, 48 + (this.#laserCurrentFrame * 8), 8, 8,
+          32, 64 + (this.#laserCurrentFrame * 8), 8, 8,
           this.dst.pos.x + (this.dst.dim.x>>1) - 4,
           this.dst.pos.y + 42,
           8,8
@@ -157,7 +157,7 @@ export default class Ship_Enemy01 extends Ship {
       else {
         Renderer.image(
           "spritesheet",
-          208, 64, 8, 8,
+          32, 80, 8, 8,
           this.dst.pos.x + (this.dst.dim.x>>1) - 4,
           this.dst.pos.y + 43,
           8,

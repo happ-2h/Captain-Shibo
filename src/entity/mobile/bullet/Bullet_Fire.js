@@ -6,10 +6,10 @@ export default class Bullet_Fire extends Bullet {
   constructor(x, y, map) {
     super(x, y, 0, -1, map);
 
-    this.src.pos.x = 200;
-    this.src.pos.y =  48;
-    this.src.dim.x =   8;
-    this.src.dim.y =   8;
+    this.src.pos.x = 24;
+    this.src.pos.y = 64;
+    this.src.dim.x =  8;
+    this.src.dim.y =  8;
 
     this.colBox.x = this.dst.pos.x + (this.dst.dim.x>>1);
     this.colBox.y = this.dst.pos.y;
