@@ -78,7 +78,6 @@ export default class DialogueState extends State {
 
     this.#drawFrame();
     this.#characters.forEach(char => char?.draw());
-
   }
 
   #handleInput(dt) {

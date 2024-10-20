@@ -139,7 +139,7 @@ export default class Player extends Entity_Mob {
 
             if (doorObj.locked) {}
             else
-              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
+              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_shop", "bkgd_test"));
           }
           // - Husky home
           else if (requestedTile === 914) {

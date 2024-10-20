@@ -44,6 +44,7 @@ export default class Game {
     AssetHandler.poll("bkgd_forest_test", "bkgd_forest_test.ogg");
     AssetHandler.poll("battlemusic", "battlemusic.ogg");
     AssetHandler.poll("bkgd_building_test", "bkgd_building_test.ogg");
+    AssetHandler.poll("bkgd_shop", "bkgd_shop.ogg");
 
     // If assets successfully loaded, start game loop
     AssetHandler.load()

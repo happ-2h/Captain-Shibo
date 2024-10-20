@@ -143,8 +143,8 @@ export default class BattleState extends State {
 
     this.#monsterRef.draw();
 
-    // TEMP
-    if (DEBUG) {
+    // TEMP requires UI
+    if (/*DEBUG*/true) { // Always true for beta testers
       Renderer.text(this.#playerRef.hp, 232, 132);
       Renderer.text(this.#monsterRef.hp, 532, 132);
       Renderer.text(`Monster ${this.#monsterRef.action}`, 532, 182);
