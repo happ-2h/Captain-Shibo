@@ -1,12 +1,11 @@
 import Renderer from "../../gfx/Renderer";
-import Tile from "./Tile";
+import Tile     from "./Tile";
 
 export default class Tile_Char extends Tile {
   /**
-   *
-   * @param {Number} x
-   * @param {Number} y
-   * @param {String} char
+   * @param {Number} x    - x-position of the char sprite
+   * @param {Number} y    - y-position of the char sprite
+   * @param {String} char - ASCII representation of the char sprite
    */
   constructor(x=0, y=0, char='') {
     super(x, y, 9999, false, null);
@@ -20,12 +19,12 @@ export default class Tile_Char extends Tile {
 
     // Letter
     if (ch >= 97 && ch <= 122) {
-      this.src.x = 8 * (ch - 'a'.charCodeAt(0));
+      this.src.x = (ch - 'a'.charCodeAt(0))<<3;
       this.src.y = 496;
     }
     // Number
     else if (ch >= 48 && ch <= 57) {
-      this.src.x = 8 * (ch - '0'.charCodeAt(0));
+      this.src.x = (ch - '0'.charCodeAt(0))<<3;
       this.src.y = 504;
     }
     // Special character

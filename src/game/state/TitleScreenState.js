@@ -1,13 +1,15 @@
-import Renderer from "../../gfx/Renderer";
-import KeyHandler from "../../input/KeyHandler";
-import { lerp } from "../../math/utils";
-import Vec2D from "../../math/Vec2D";
-import State from "./State";
-import Settings from "../../utils/Settings";
-import StateHandler from "./StateHandler";
+import Renderer      from "../../gfx/Renderer";
+import KeyHandler    from "../../input/KeyHandler";
+import Vec2D         from "../../math/Vec2D";
+import State         from "./State";
+import Settings      from "../../utils/Settings";
+import StateHandler  from "./StateHandler";
 import SettingsState from "./SettingsState";
-import GameState from "./GameState";
+import GameState     from "./GameState";
+
+import { lerp } from "../../math/utils";
 import {
+  DEBUG,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   WINDOW_HEIGHT,
@@ -28,19 +30,16 @@ export default class TitleScreenState extends State {
   init() {
     this.#logo = {
       pos: new Vec2D(0, -32),
-      dim: new Vec2D(112, 32)
+      dim: new Vec2D(320, 180)
     };
     this.#cursor = {
-      pos: new Vec2D(8, 6),
-      src: new Vec2D(208, 240),
+      pos: new Vec2D(7, 8),
+      src: new Vec2D(208, 496),
       timer: 0,
       delay: 0.3
     };
 
-    this.#destination = new Vec2D(
-      (SCREEN_WIDTH>>1) - (this.#logo.dim.x>>1),
-      SCREEN_HEIGHT * 0.25
-    );
+    this.#destination = new Vec2D(0, 0);
 
     this.#phase = "logo";
   }
@@ -58,6 +57,12 @@ export default class TitleScreenState extends State {
         0.06
       );
 
+      // Skip logo animation
+      if (KeyHandler.isDown(Settings.keyAction)) {
+        this.#logo.pos.x = this.#destination.x;
+        this.#logo.pos.y = this.#destination.y;
+      }
+
       if (
         this.#logo.pos.x + 0.1 >= this.#destination.x &&
         this.#logo.pos.y + 0.1 >= this.#destination.y
@@ -74,26 +79,25 @@ export default class TitleScreenState extends State {
         if (KeyHandler.isDown(Settings.keyDown)) {
           this.#cursor.timer = 0;
           this.#cursor.pos.y =
-          this.#cursor.pos.y + 1 > 7
-            ? 6
+          this.#cursor.pos.y + 1 > 9
+            ? 8
             : this.#cursor.pos.y + 1;
         }
         else if (KeyHandler.isDown(Settings.keyUp)) {
           this.#cursor.timer = 0;
           this.#cursor.pos.y =
-            this.#cursor.pos.y - 1 < 6
-              ? 7
+            this.#cursor.pos.y - 1 < 8
+              ? 9
               : this.#cursor.pos.y - 1;
         }
-
         // Action
         else if (KeyHandler.isDown(Settings.keyAction)) {
           this.#cursor.timer = 0;
 
           // Start
-          if (this.#cursor.pos.y === 6) StateHandler.pop();
+          if (this.#cursor.pos.y === 8) StateHandler.pop();
           // Settings
-          else if (this.#cursor.pos.y === 7) StateHandler.push(new SettingsState);
+          else if (this.#cursor.pos.y === 9) StateHandler.push(new SettingsState);
         }
       }
     }
@@ -103,10 +107,10 @@ export default class TitleScreenState extends State {
   render() {
     Renderer.clear(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    Renderer.rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, "#C28D75", true);
+    Renderer.rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, "#433455", true);
 
     Renderer.image(
-      "logo", 0, 0, 112, 32,
+      "logo", 0, 0, this.#logo.dim.x, this.#logo.dim.y,
       this.#logo.pos.x,
       this.#logo.pos.y,
       this.#logo.dim.x,
@@ -123,10 +127,11 @@ export default class TitleScreenState extends State {
         8, 8
       );
 
-      this.#drawText(18, 6);
+      this.#drawText(17, 8);
     }
 
-    Renderer.drawGrid(20, 12, "rgba(255,255,255,0.3");
+    if (DEBUG)
+      Renderer.drawGrid(20, 12, "rgba(255,255,255,0.3");
   }
 
   #drawText(startX=0, startY=0) {
@@ -135,10 +140,10 @@ export default class TitleScreenState extends State {
     [..."start"].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++)*8,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        (startX++)<<3,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -149,10 +154,10 @@ export default class TitleScreenState extends State {
     [..."settings"].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++)*8,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        (startX++)<<3,
+        (startY<<4) + 4,
         8, 8
       );
     });

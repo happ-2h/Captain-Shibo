@@ -1,17 +1,18 @@
 import AudioHandler from "../../audio/AudioHandler";
-import Camera from "../../camera/Camera";
-import Player from "../../entity/mobile/player/Player";
-import Tile from "../../entity/tile/Tile";
-import Renderer from "../../gfx/Renderer";
-import MapHandler from "../../map/MapHandler";
-import Rectangle from "../../utils/Rectangle";
-import State from "./State";
-import { rand, randInt } from "../../math/utils";
-import OBJ_Chest from "../../entity/object/OBJ_Chest";
-import OBJ_Coins from "../../entity/object/OBJ_Coins";
+import Camera       from "../../camera/Camera";
+import Player       from "../../entity/mobile/player/Player";
+import Tile         from "../../entity/tile/Tile";
+import Renderer     from "../../gfx/Renderer";
+import MapHandler   from "../../map/MapHandler";
+import Rectangle    from "../../utils/Rectangle";
+import State        from "./State";
+import OBJ_Chest    from "../../entity/object/OBJ_Chest";
+import OBJ_Coins    from "../../entity/object/OBJ_Coins";
 import StateHandler from "./StateHandler";
-import BattleState from "./BattleState";
-import Cat from "../../entity/enemy/Cat";
+import BattleState  from "./BattleState";
+import Cat          from "../../entity/enemy/Cat";
+
+import { rand, randInt } from "../../math/utils";
 import {
   SCREEN_WIDTH,
   SCREEN_HEIGHT,

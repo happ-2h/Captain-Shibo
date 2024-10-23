@@ -13,6 +13,7 @@ class _CollisionChecker {
    *
    * @param {Circle} c1 - First circle to check
    * @param {Circle} c2 - Second circle to check
+   *
    * @returns true if the circles intersect; false otherwise
    */
   circle_circle(c1, c2) {

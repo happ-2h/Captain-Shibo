@@ -1,8 +1,14 @@
-import Rectangle from "../utils/Rectangle";
-import { RES_HEIGHT, RES_SCALE, RES_WIDTH, TILE_SIZE } from "../game/constants"
-import { lerp } from "../math/utils";
-import Vec2D from "../math/Vec2D";
+import Rectangle  from "../utils/Rectangle";
+import Vec2D      from "../math/Vec2D";
 import MapHandler from "../map/MapHandler";
+
+import { lerp } from "../math/utils";
+import {
+  RES_HEIGHT,
+  RES_SCALE,
+  RES_WIDTH,
+  TILE_SIZE
+} from "../game/constants";
 
 export default class Camera {
   #rect;    // Holds x, y, width, and height of the camera

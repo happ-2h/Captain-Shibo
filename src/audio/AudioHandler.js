@@ -8,14 +8,14 @@ class _AudioHandler {
   #sounds;
   #trackSources; // Used for stopping audio
 
-  #nowPlaying; // Holds currently playing song ID
+  #nowPlaying;   // Holds currently playing song ID
 
   constructor() {
     if (instance) throw new Error("AudioHandler singleton reconstructed");
 
     this.#ctx = new AudioContext();
 
-    this.#sounds = new Map;
+    this.#sounds       = new Map;
     this.#trackSources = new Map;
 
     this.#nowPlaying = "";
@@ -32,7 +32,6 @@ class _AudioHandler {
   load(audioID, filename) {
     return new Promise((res, rej) => {
       this.#loadFile(filename).then(track => {
-        // this.#sounds[audioID] = new Sound(track);
         this.#sounds.set(audioID, new Sound(track));
         res(`${filename} loaded`);
       }).catch(err => rej(err));

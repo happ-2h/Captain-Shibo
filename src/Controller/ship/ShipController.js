@@ -1,7 +1,7 @@
 import GamepadHandler from "../../input/GamepadHandler";
-import KeyHandler from "../../input/KeyHandler";
-import Settings from "../../utils/Settings";
-import Controller from "../Controller";
+import KeyHandler     from "../../input/KeyHandler";
+import Settings       from "../../utils/Settings";
+import Controller     from "../Controller";
 
 export default class ShipController extends Controller {
   constructor() { super(); }

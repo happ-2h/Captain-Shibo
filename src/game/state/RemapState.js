@@ -1,10 +1,11 @@
-import Renderer from "../../gfx/Renderer";
-import State from "./State";
-import { WINDOW_WIDTH, WINDOW_HEIGHT } from "../constants";
-import Settings from "../../utils/Settings";
-import Vec2D from "../../math/Vec2D";
-import KeyHandler from "../../input/KeyHandler";
+import Renderer     from "../../gfx/Renderer";
+import State        from "./State";
+import Settings     from "../../utils/Settings";
+import Vec2D        from "../../math/Vec2D";
+import KeyHandler   from "../../input/KeyHandler";
 import StateHandler from "./StateHandler";
+
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from "../constants";
 
 export default class RemapState extends State {
   #cursor;
@@ -20,7 +21,7 @@ export default class RemapState extends State {
   init() {
     this.#cursor = {
       pos: new Vec2D(7, 1),
-      src: new Vec2D(208, 240),
+      src: new Vec2D(208, 496),
       limit: 6,
       timer: 0,
       delay: 0.3
@@ -111,10 +112,10 @@ export default class RemapState extends State {
     [ ..."up" ].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++) * 16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -129,35 +130,35 @@ export default class RemapState extends State {
       // Arrow keys
       case 37:
         imgx = 192;
-        imgy = 248;
+        imgy = 504;
         break;
       case 38:
         imgx = 200;
-        imgy = 248;
+        imgy = 504;
         break;
       case 39:
         imgx = 208;
-        imgy = 248;
+        imgy = 504;
         break;
       case 40:
         imgx = 216;
-        imgy = 248;
+        imgy = 504;
         break;
       // Other
       default:
-        imgy = 240;
+        imgy = 496;
         imgx = (
           String.fromCharCode(Settings.keyUp)
             .toLocaleLowerCase()
-            .charCodeAt(0) - 'a'.charCodeAt(0)) * 8;
+            .charCodeAt(0) - 'a'.charCodeAt(0))<<3;
         break;
     }
 
     Renderer.image(
       "spritesheet",
       imgx, imgy, 8, 8,
-      startX * 16 + 4,
-      startY * 16 + 4,
+      (startX<<4) + 4,
+      (startY<<4) + 4,
       8, 8
     );
 
@@ -167,10 +168,10 @@ export default class RemapState extends State {
     [ ..."down" ].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++) * 16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -183,35 +184,35 @@ export default class RemapState extends State {
       // Arrow keys
       case 37:
         imgx = 192;
-        imgy = 248;
+        imgy = 504;
         break;
       case 38:
         imgx = 200;
-        imgy = 248;
+        imgy = 504;
         break;
       case 39:
         imgx = 208;
-        imgy = 248;
+        imgy = 504;
         break;
       case 40:
         imgx = 216;
-        imgy = 248;
+        imgy = 504;
         break;
       // Other
       default:
-        imgy = 240;
+        imgy = 496;
         imgx = (
           String.fromCharCode(Settings.keyDown)
             .toLocaleLowerCase()
-            .charCodeAt(0) - 'a'.charCodeAt(0)) * 8;
+            .charCodeAt(0) - 'a'.charCodeAt(0))<<3;
         break;
     }
 
     Renderer.image(
       "spritesheet",
       imgx, imgy, 8, 8,
-      startX * 16 + 4,
-      startY * 16 + 4,
+      (startX<<4) + 4,
+      (startY<<4) + 4,
       8, 8
     );
 
@@ -221,10 +222,10 @@ export default class RemapState extends State {
     [ ..."left" ].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++) * 16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -237,35 +238,35 @@ export default class RemapState extends State {
       // Arrow keys
       case 37:
         imgx = 192;
-        imgy = 248;
+        imgy = 504;
         break;
       case 38:
         imgx = 200;
-        imgy = 248;
+        imgy = 504;
         break;
       case 39:
         imgx = 208;
-        imgy = 248;
+        imgy = 504;
         break;
       case 40:
         imgx = 216;
-        imgy = 248;
+        imgy = 504;
         break;
       // Other
       default:
-        imgy = 240;
+        imgy = 496;
         imgx = (
           String.fromCharCode(Settings.keyLeft)
             .toLocaleLowerCase()
-            .charCodeAt(0) - 'a'.charCodeAt(0)) * 8;
+            .charCodeAt(0) - 'a'.charCodeAt(0))<<3;
         break;
     }
 
     Renderer.image(
       "spritesheet",
       imgx, imgy, 8, 8,
-      startX * 16 + 4,
-      startY * 16 + 4,
+      (startX<<4) + 4,
+      (startY<<4) + 4,
       8, 8
     );
 
@@ -275,10 +276,10 @@ export default class RemapState extends State {
     [ ..."right" ].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++) * 16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -290,35 +291,35 @@ export default class RemapState extends State {
       // Arrow keys
       case 37:
         imgx = 192;
-        imgy = 248;
+        imgy = 504;
         break;
       case 38:
         imgx = 200;
-        imgy = 248;
+        imgy = 504;
         break;
       case 39:
         imgx = 208;
-        imgy = 248;
+        imgy = 504;
         break;
       case 40:
         imgx = 216;
-        imgy = 248;
+        imgy = 504;
         break;
       // Other
       default:
-        imgy = 240;
+        imgy = 496;
         imgx = (
           String.fromCharCode(Settings.keyRight)
             .toLocaleLowerCase()
-            .charCodeAt(0) - 'a'.charCodeAt(0)) * 8;
+            .charCodeAt(0) - 'a'.charCodeAt(0))<<3;
         break;
     }
 
     Renderer.image(
       "spritesheet",
       imgx, imgy, 8, 8,
-      startX * 16 + 4,
-      startY * 16 + 4,
+      (startX<<4) + 4,
+      (startY<<4) + 4,
       8, 8
     );
 
@@ -328,10 +329,10 @@ export default class RemapState extends State {
     [ ..."action" ].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++) * 16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -342,35 +343,35 @@ export default class RemapState extends State {
       // Arrow keys
       case 37:
         imgx = 192;
-        imgy = 248;
+        imgy = 504;
         break;
       case 38:
         imgx = 200;
-        imgy = 248;
+        imgy = 504;
         break;
       case 39:
         imgx = 208;
-        imgy = 248;
+        imgy = 504;
         break;
       case 40:
         imgx = 216;
-        imgy = 248;
+        imgy = 504;
         break;
       // Other
       default:
-        imgy = 240;
+        imgy = 496;
         imgx = (
           String.fromCharCode(Settings.keyAction)
             .toLocaleLowerCase()
-            .charCodeAt(0) - 'a'.charCodeAt(0)) * 8;
+            .charCodeAt(0) - 'a'.charCodeAt(0))<<3;
         break;
     }
 
     Renderer.image(
       "spritesheet",
       imgx, imgy, 8, 8,
-      startX * 16 + 4,
-      startY * 16 + 4,
+      (startX<<4) + 4,
+      (startY<<4) + 4,
       8, 8
     );
 
@@ -380,10 +381,10 @@ export default class RemapState extends State {
     [ ..."back" ].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++) * 16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -395,10 +396,10 @@ export default class RemapState extends State {
       [ ..."press a key" ].forEach(c => {
         Renderer.image(
           "spritesheet",
-          (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-          240, 8, 8,
-          (startX++) * 16 + 4,
-          startY * 16 + 4,
+          (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+          496, 8, 8,
+          ((startX++)<<4) + 4,
+          (startY<<4) + 4,
           8, 8
         );
       });

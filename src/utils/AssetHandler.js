@@ -1,6 +1,6 @@
-import AudioHandler from "../audio/AudioHandler";
+import AudioHandler   from "../audio/AudioHandler";
 import TextureHandler from "../gfx/TextureHandler";
-import MapHandler from "../map/MapHandler";
+import MapHandler     from "../map/MapHandler";
 
 let instance = null;
 
@@ -31,7 +31,8 @@ class _AssetHandler {
    * @param {String} assetID  - Name of the asset to refer to
    * @param {String} filename - File name of the asset\
    *                            Images: png\
-   *                            Maps: json
+   *                            Maps: json\
+   *                            Audio: wav, ogg
    */
   poll(assetID, filename) {
     ++this.#toLoad;

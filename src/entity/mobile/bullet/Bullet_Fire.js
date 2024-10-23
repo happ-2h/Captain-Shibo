@@ -1,6 +1,7 @@
-import { DEBUG } from "../../../game/constants";
 import Renderer from "../../../gfx/Renderer";
-import Bullet from "./Bullet";
+import Bullet   from "./Bullet";
+
+import { DEBUG } from "../../../game/constants";
 
 export default class Bullet_Fire extends Bullet {
   constructor(x, y, map) {

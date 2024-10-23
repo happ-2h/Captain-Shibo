@@ -5,7 +5,6 @@ export default class Animation {
   #speedTimer;
 
   /**
-   *
    * @param {Array} sequence - Sequence of images used for animation
    * @param {Number} speed   - Speed, in frames, to display one image
    */
@@ -38,7 +37,7 @@ export default class Animation {
   /**
    * @brief Sets a new animaion
    *
-   * @param {Array} sequence -  Sequence of images used for animation
+   * @param {Array} sequence - Sequence of images used for animation
    * @param {Number} speed   - Speed, in frames, to display one image
    */
   setAnimation(sequence, speed) {

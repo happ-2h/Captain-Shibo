@@ -1,12 +1,17 @@
-import Camera from "../../camera/Camera";
+import Camera       from "../../camera/Camera";
 import Ship_Enemy01 from "../../entity/mobile/ship/enemy/Ship_Enemy01";
-import Ship_Basic from "../../entity/mobile/ship/player/Ship_Basic";
-import Renderer from "../../gfx/Renderer";
-import MapHandler from "../../map/MapHandler";
-import Rectangle from "../../utils/Rectangle";
-import { TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants";
-import State from "./State";
+import Ship_Basic   from "../../entity/mobile/ship/player/Ship_Basic";
+import Renderer     from "../../gfx/Renderer";
+import MapHandler   from "../../map/MapHandler";
+import Rectangle    from "../../utils/Rectangle";
+import State        from "./State";
 import StateHandler from "./StateHandler";
+
+import {
+  TILE_SIZE,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH
+} from "../constants";
 
 export default class FlyState extends State {
   #player;

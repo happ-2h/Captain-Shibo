@@ -1,15 +1,20 @@
-import Camera from "../../camera/Camera";
-import Player from "../../entity/mobile/player/Player";
-import MapHandler from "../../map/MapHandler";
-import { TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants";
-import State from "./State";
-import Renderer from "../../gfx/Renderer";
-import Rectangle from "../../utils/Rectangle";
-import Tile from "../../entity/tile/Tile";
-import StateHandler from "./StateHandler";
-import AudioHandler from "../../audio/AudioHandler";
+import Camera            from "../../camera/Camera";
+import Player            from "../../entity/mobile/player/Player";
+import MapHandler        from "../../map/MapHandler";
+import State             from "./State";
+import Renderer          from "../../gfx/Renderer";
+import Rectangle         from "../../utils/Rectangle";
+import Tile              from "../../entity/tile/Tile";
+import StateHandler      from "./StateHandler";
+import AudioHandler      from "../../audio/AudioHandler";
 import NPC_Boy_ShopOwner from "../../entity/npc/NPC_Boy_ShopOwner";
-import NPC_Dog_Husky from "../../entity/npc/NPC_Dog_Husky";
+import NPC_Dog_Husky     from "../../entity/npc/NPC_Dog_Husky";
+
+import {
+  TILE_SIZE,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH
+} from "../constants";
 
 export default class BuildingState extends State {
   #player;
@@ -22,13 +27,12 @@ export default class BuildingState extends State {
   #prevMusic; // Music to replay after leaving
 
   /**
-   *
    * @param {Player} player - Reference to the player
    * @param {String} maps   - Strings of maps representing floors
    */
   constructor(player=null, maps=null, bkgdmusic=null, prevmusic=null) {
     super();
-    this.#player = player;
+    this.#player  = player;
     this.#prevPos = player.dst.pos.clone();
     this.#prevMap = this.#player.map;
 

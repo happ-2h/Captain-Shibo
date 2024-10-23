@@ -4,7 +4,6 @@ export default class Sound {
   playbackRate;
 
   /**
-   *
    * @param {AudioBuffer} buffer  - Buffer of the decoded audio file
    * @param {Number} volume       - Gain value to play the audio file at
    * @param {Number} playbackRate - Playback rate to play the audio file at

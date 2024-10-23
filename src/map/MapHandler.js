@@ -1,5 +1,5 @@
+import Map       from "./Map";
 import Rectangle from "../utils/Rectangle";
-import Map from "./Map";
 
 let instance = null;
 

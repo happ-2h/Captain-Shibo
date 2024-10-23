@@ -1,11 +1,16 @@
-import Renderer from "../gfx/Renderer";
-import GamepadHandler from "../input/GamepadHandler";
-import AssetHandler from "../utils/AssetHandler";
-import { DEBUG, WINDOW_HEIGHT, WINDOW_WIDTH } from "./constants";
-import Settings from "../utils/Settings";
-import StateHandler from "./state/StateHandler";
+import Renderer         from "../gfx/Renderer";
+import GamepadHandler   from "../input/GamepadHandler";
+import AssetHandler     from "../utils/AssetHandler";
+import Settings         from "../utils/Settings";
+import StateHandler     from "./state/StateHandler";
 import TitleScreenState from "./state/TitleScreenState";
-import GameState from "./state/GameState";
+import GameState        from "./state/GameState";
+
+import {
+  DEBUG,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH
+} from "./constants";
 
 export default class Game {
   #cnv;  // HTML canvas reference
@@ -26,11 +31,6 @@ export default class Game {
     AssetHandler.poll("enemyship01", "enemyship_01.png");
     AssetHandler.poll("logo", "logo.png");
     // - Maps
-    /*AssetHandler.poll("test_map", "test_map.json");
-    AssetHandler.poll("test_forest", "test_forest.json");
-    AssetHandler.poll("test_battleBKGD", "test_battleBKGD.json");
-    AssetHandler.poll("building_test", "building_test.json");
-    AssetHandler.poll("space_bkgd", "space_bkgd.json");*/
     AssetHandler.poll("town_map", "town_map.json");
     AssetHandler.poll("forest_felis", "forest_felis.json");
     AssetHandler.poll("battle_forest_bkgd", "battle_forest_bkgd.json");
@@ -54,8 +54,7 @@ export default class Game {
 
   init() {
     Settings.load();
-    // StateHandler.push(new TitleScreenState);
-    StateHandler.push(new GameState);
+    StateHandler.push(new TitleScreenState);
 
     Renderer.init(this.#cnv.getContext("2d", {alpha: false}));
 

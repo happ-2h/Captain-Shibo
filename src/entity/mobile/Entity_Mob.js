@@ -1,8 +1,9 @@
-import Entity from "../Entity";
+import Entity     from "../Entity";
 import Controller from "../../Controller/Controller";
-import Renderer from "../../gfx/Renderer";
+import Renderer   from "../../gfx/Renderer";
+import Vec2D      from "../../math/Vec2D";
+
 import { DEBUG } from "../../game/constants";
-import Vec2D from "../../math/Vec2D";
 
 export default class Entity_Mob extends Entity {
   #controller; // Movement handler

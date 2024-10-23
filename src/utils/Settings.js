@@ -5,7 +5,7 @@ let instance = null;
 class _Settings {
   #keymap;     // For: remapping keys
   #volume;     // For: adjusting music and sound effect volumes
-  #resolution; // For: changing resolution
+  #resolution; // TODO For: changing resolution
 
   constructor() {
     if (instance) throw new Error("Settings singleton reconstructed");

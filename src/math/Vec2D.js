@@ -19,19 +19,16 @@ export default class Vec2D {
   static left()  { return new Vec2D(-1, 0); }
 
   /**
-   *
    * @returns Right-directional vector
    */
   static right() { return new Vec2D(1, 0);  }
 
   /**
-   *
    * @returns Up-directional vector
    */
   static up()    { return new Vec2D(0, -1); }
 
   /**
-   *
    * @returns Down-directional vector
    */
   static down()  { return new Vec2D(0, 1);  }
@@ -173,7 +170,7 @@ export default class Vec2D {
    * @param {Number} v1 - Vector to use for calculating the angle
    * @param {Number} v2 - Vector to use for calculating the angle
    *
-   * @returns Angle, in radins, between the two vectors
+   * @returns Angle, in radians, between the two vectors
    */
   static angBetween(v1, v2) {
     const l1 = v1.length;

@@ -1,12 +1,11 @@
+import Vec2D         from "../math/Vec2D";
 import { TILE_SIZE } from "../game/constants";
-import Vec2D from "../math/Vec2D";
 
 export default class Circle {
   #pos; // Position (x, y)
   #radius;
 
   /**
-   *
    * @param {Number} x      - x-position of the circle
    * @param {Number} y      - y-position of the circle
    * @param {Number} radius - Radius of the circle
@@ -26,11 +25,12 @@ export default class Circle {
   get circumference() { return Math.PI * 2 * this.#radius; }
 
   // Mutators
+  set x(x) { this.#pos.x = x; }
+  set y(y) { this.#pos.y = y; }
+  set radius(rad) { this.#radius = rad; }
+
   set pos(pos) {
     this.#pos = null;
     this.#pos = pos;
   }
-  set x(x) { this.#pos.x = x; }
-  set y(y) { this.#pos.y = y; }
-  set radius(rad) { this.#radius = rad; }
 };

@@ -1,7 +1,8 @@
-import Entity from "../Entity";
-import Renderer from "../../gfx/Renderer";
-import { DEBUG } from "../../game/constants";
+import Entity       from "../Entity";
+import Renderer     from "../../gfx/Renderer";
 import AudioHandler from "../../audio/AudioHandler";
+
+import { DEBUG } from "../../game/constants";
 
 export default class OBJ_Chest extends Entity {
   #loot;

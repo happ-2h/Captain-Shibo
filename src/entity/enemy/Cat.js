@@ -1,8 +1,9 @@
-import Entity from "../Entity";
+import Entity   from "../Entity";
 import Renderer from "../../gfx/Renderer";
+import Vec2D    from "../../math/Vec2D";
+
+import { max, randInt }         from "../../math/utils";
 import { DEBUG, SCREEN_HEIGHT } from "../../game/constants";
-import Vec2D from "../../math/Vec2D";
-import { max, randInt } from "../../math/utils";
 
 export default class Cat extends Entity {
   // Battle

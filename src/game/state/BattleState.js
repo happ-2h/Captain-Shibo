@@ -1,14 +1,19 @@
 import AudioHandler from "../../audio/AudioHandler";
-import State from "./State";
-import Renderer from "../../gfx/Renderer";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, DEBUG } from "../constants";
-import Camera from "../../camera/Camera";
-import MapHandler from "../../map/MapHandler";
-import Rectangle from "../../utils/Rectangle";
-import KeyHandler from "../../input/KeyHandler";
-import { max } from "../../math/utils";
+import State        from "./State";
+import Renderer     from "../../gfx/Renderer";
+import Camera       from "../../camera/Camera";
+import MapHandler   from "../../map/MapHandler";
+import Rectangle    from "../../utils/Rectangle";
+import KeyHandler   from "../../input/KeyHandler";
 import StateHandler from "./StateHandler";
-import Settings from "../../utils/Settings";
+import Settings     from "../../utils/Settings";
+
+import { max } from "../../math/utils";
+import {
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  DEBUG
+} from "../constants";
 
 export default class BattleState extends State {
   #playerRef;
@@ -98,13 +103,12 @@ export default class BattleState extends State {
 
       if (this.#monsterRef.hitPlayer) {
         this.#phase = "shake";
-        let dmg = this.#playerRef.defending ? 1 : max(1, this.#monsterRef.attack - this.#playerRef.def);
+        let dmg = this.#playerRef.defending ? 1
+          : max(1, this.#monsterRef.attack - this.#playerRef.def);
 
         this.#playerRef.hp -= dmg;
 
-        if (this.#playerRef.hp <= 0) {
-          this.#playerRef.hp = 0;
-        }
+        if (this.#playerRef.hp <= 0) this.#playerRef.hp = 0;
       }
     }
     else if (this.#phase === "shake") {
@@ -129,9 +133,7 @@ export default class BattleState extends State {
         // Easter egg if player hits monster while monster is down
         // console.log("CRUEL");
       }
-      if (KeyHandler.isDown(Settings.keyAction)) {
-        StateHandler.pop();
-      }
+      if (KeyHandler.isDown(Settings.keyAction)) StateHandler.pop();
     }
   }
 

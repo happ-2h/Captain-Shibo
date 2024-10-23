@@ -1,15 +1,16 @@
-import AudioHandler from "../../audio/AudioHandler";
-import Entity from "../../entity/Entity";
-import Tile_Char from "../../entity/tile/Tile_Char";
-import Renderer from "../../gfx/Renderer";
+import AudioHandler   from "../../audio/AudioHandler";
+import Entity         from "../../entity/Entity";
+import Tile_Char      from "../../entity/tile/Tile_Char";
+import Renderer       from "../../gfx/Renderer";
 import GamepadHandler from "../../input/GamepadHandler";
-import KeyHandler from "../../input/KeyHandler";
-import Vec2D from "../../math/Vec2D";
-import Rectangle from "../../utils/Rectangle";
-import Settings from "../../utils/Settings";
+import KeyHandler     from "../../input/KeyHandler";
+import Vec2D          from "../../math/Vec2D";
+import Rectangle      from "../../utils/Rectangle";
+import Settings       from "../../utils/Settings";
+import State          from "./State";
+import StateHandler   from "./StateHandler";
+
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants";
-import State from "./State";
-import StateHandler from "./StateHandler";
 
 export default class DialogueState extends State {
   #background;  // Background image

@@ -1,10 +1,15 @@
-import { DEBUG, SCREEN_HEIGHT, SCREEN_WIDTH } from "../../../../game/constants";
-import Renderer from "../../../../gfx/Renderer";
+import Renderer         from "../../../../gfx/Renderer";
 import CollisionChecker from "../../../../math/CollisionChecker";
+import Vec2D            from "../../../../math/Vec2D";
+import Bullet           from "../../bullet/Bullet";
+import Ship             from "../Ship";
+
 import { lerp, rand, TAU } from "../../../../math/utils";
-import Vec2D from "../../../../math/Vec2D";
-import Bullet from "../../bullet/Bullet";
-import Ship from "../Ship";
+import {
+  DEBUG,
+  SCREEN_HEIGHT,
+  SCREEN_WIDTH
+} from "../../../../game/constants";
 
 export default class Ship_Enemy01 extends Ship {
   #img;

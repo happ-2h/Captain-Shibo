@@ -1,12 +1,13 @@
-import Renderer from "../../gfx/Renderer";
-import KeyHandler from "../../input/KeyHandler";
-import Settings from "../../utils/Settings";
+import Renderer     from "../../gfx/Renderer";
+import KeyHandler   from "../../input/KeyHandler";
+import Settings     from "../../utils/Settings";
 import StateHandler from "./StateHandler";
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants";
-import State from "./State";
+import State        from "./State";
 import AudioHandler from "../../audio/AudioHandler";
-import Vec2D from "../../math/Vec2D";
-import RemapState from "./RemapState";
+import Vec2D        from "../../math/Vec2D";
+import RemapState   from "./RemapState";
+
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants";
 
 export default class SettingsState extends State {
   #cursor;
@@ -19,7 +20,7 @@ export default class SettingsState extends State {
   init() {
     this.#cursor = {
       pos: new Vec2D(7, 1),
-      src: new Vec2D(208, 240),
+      src: new Vec2D(208, 496),
       limit: 3,
       timer: 0,
       delay: 0.3
@@ -97,10 +98,10 @@ export default class SettingsState extends State {
     [ ..."vol" ].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++)*16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -109,32 +110,32 @@ export default class SettingsState extends State {
     ++startX;
 
     let vol =
-      Settings.volMusic === 0 ? "0.0"
+      Settings.volMusic     === 0 ? "0.0"
         : Settings.volMusic === 1 ? "1.0"
         : Settings.volMusic.toString();
 
     Renderer.image(
       "spritesheet",
-      (vol[0].charCodeAt(0) - '0'.charCodeAt(0)) * 8,
-      248, 8, 8,
-      (startX++)*16 + 4,
-      startY * 16 + 4,
+      (vol[0].charCodeAt(0) - '0'.charCodeAt(0))<<3,
+      504, 8, 8,
+      ((startX++)<<4) + 4,
+      (startY<<4) + 4,
       8, 8
     );
     Renderer.image(
       "spritesheet",
       80,
-      248, 8, 8,
+      504, 8, 8,
       (startX++)*16 + 4,
       startY * 16 + 4,
       8, 8
     );
     Renderer.image(
       "spritesheet",
-      (vol[2].charCodeAt(0) - '0'.charCodeAt(0)) * 8,
-      248, 8, 8,
-      (startX++)*16 + 4,
-      startY * 16 + 4,
+      (vol[2].charCodeAt(0) - '0'.charCodeAt(0))<<3,
+      504, 8, 8,
+      ((startX++)<<4) + 4,
+      (startY<<4) + 4,
       8, 8
     );
 
@@ -145,10 +146,10 @@ export default class SettingsState extends State {
     [..."remap"].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++)*16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });
@@ -160,10 +161,10 @@ export default class SettingsState extends State {
     [..."exit"].forEach(c => {
       Renderer.image(
         "spritesheet",
-        (c.charCodeAt(0) - 'a'.charCodeAt(0)) * 8,
-        240, 8, 8,
-        (startX++)*16 + 4,
-        startY * 16 + 4,
+        (c.charCodeAt(0) - 'a'.charCodeAt(0))<<3,
+        496, 8, 8,
+        ((startX++)<<4) + 4,
+        (startY<<4) + 4,
         8, 8
       );
     });

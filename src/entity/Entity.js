@@ -1,6 +1,7 @@
 import Rectangle from "../utils/Rectangle";
+import Vec2D     from "../math/Vec2D";
+
 import { TILE_SIZE } from "../game/constants";
-import Vec2D from "../math/Vec2D";
 
 export default class Entity {
   #dst; // Destination rectangle

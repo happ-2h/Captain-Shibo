@@ -1,14 +1,15 @@
 import PlayerController from "../../../Controller/PlayerController";
-import { TILE_SIZE } from "../../../game/constants";
-import MapHandler from "../../../map/MapHandler";
-import Entity_Mob from "../Entity_Mob";
-import Animation from "../../../gfx/Animation";
-import StateHandler from "../../../game/state/StateHandler";
-import DialogueState from "../../../game/state/DialogueState";
+import MapHandler       from "../../../map/MapHandler";
+import Entity_Mob       from "../Entity_Mob";
+import Animation        from "../../../gfx/Animation";
+import StateHandler     from "../../../game/state/StateHandler";
+import DialogueState    from "../../../game/state/DialogueState";
+import BuildingState    from "../../../game/state/BuildingState";
+import FlyState         from "../../../game/state/FlyState";
+import SettingsState    from "../../../game/state/SettingsState";
+
 import { canvasSnapshot } from "../../../gfx/utils";
-import BuildingState from "../../../game/state/BuildingState";
-import FlyState from "../../../game/state/FlyState";
-import SettingsState from "../../../game/state/SettingsState";
+import { TILE_SIZE }      from "../../../game/constants";
 
 export default class Player extends Entity_Mob {
   #actionTimer;
@@ -130,56 +131,12 @@ export default class Player extends Entity_Mob {
             ));
           }
 
-          // Doors TODO make fuction
-          // - Ship Shop
-          else if (requestedTile === 897) {
-            this.#actionTimer = 0;
-
-            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
-
-            if (doorObj.locked) {}
-            else
-              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_shop", "bkgd_test"));
-          }
-          // - Husky home
-          else if (requestedTile === 914) {
-            this.#actionTimer = 0;
-
-            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
-
-            if (doorObj.locked) {}
-            else
-              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
-          }
-          // - Shed
-          else if (requestedTile === 902) {
-            this.#actionTimer = 0;
-
-            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
-
-            if (doorObj.locked)
-              StateHandler.push(new DialogueState(
-                canvasSnapshot(),
-                null, this, 1,
-                "Door is locked"
-              ));
-            else
-              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
-          }
-          else if (requestedTile === 103) {
-            this.#actionTimer = 0;
-
-            const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
-
-            if (doorObj.locked)
-              StateHandler.push(new DialogueState(
-                canvasSnapshot(),
-                null, this, 1,
-                "Door is locked"
-              ));
-            else
-              StateHandler.push(new BuildingState(this, doorObj.to, "bkgd_building_test", "bkgd_test"));
-          }
+          // Doors
+          else if (
+            requestedTile === 897 || // Ship shop
+            requestedTile === 914 || // Husky Home
+            requestedTile === 902    // Shed
+          ) this.#checkDoor(requestedTile, _x, _y);
 
           // Chest
           else if (requestedTile === 642) {
@@ -298,6 +255,26 @@ export default class Player extends Entity_Mob {
 
     this.src.pos.x = (this.animation.currentFrame&0x1F)<<4;
     this.src.pos.y = (this.animation.currentFrame>>5)<<4;
+  }
+
+  #checkDoor(tileID, _x, _y) {
+    this.#actionTimer = 0;
+
+    const doorObj = MapHandler.getMap(this.map).getTileObject(_x, _y);
+
+    if (doorObj.locked)
+      StateHandler.push(new DialogueState(
+        canvasSnapshot(),
+        null, this, 1,
+        "Door is locked"
+      ));
+    else
+      StateHandler.push(new BuildingState(
+        this,
+        doorObj.to,
+        tileID === 897 ? "bkgd_shop" : "bkgd_building_test",
+        "bkgd_test"
+      ));
   }
 
   steppingOn(layer=0) {

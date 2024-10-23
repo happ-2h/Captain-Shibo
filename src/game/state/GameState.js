@@ -1,20 +1,20 @@
-import AudioHandler from "../../audio/AudioHandler";
-import Camera from "../../camera/Camera";
-import Player from "../../entity/mobile/player/Player";
-import NPC_Basic from "../../entity/npc/NPC_basic";
-import NPC_Boy_Weird from "../../entity/npc/NPC_Boy_Weird";
-import NPC_Girl_Green from "../../entity/npc/NPC_Girl_Green";
+import AudioHandler    from "../../audio/AudioHandler";
+import Camera          from "../../camera/Camera";
+import Player          from "../../entity/mobile/player/Player";
+import NPC_Basic       from "../../entity/npc/NPC_basic";
+import NPC_Boy_Weird   from "../../entity/npc/NPC_Boy_Weird";
+import NPC_Girl_Green  from "../../entity/npc/NPC_Girl_Green";
 import NPC_Girl_Purple from "../../entity/npc/NPC_Girl_Purple";
-import OBJ_Sign from "../../entity/object/OBJ_Sign";
-import Tile from "../../entity/tile/Tile";
-import Tile_Door from "../../entity/tile/Tile_Door";
-import Renderer from "../../gfx/Renderer";
-import MapHandler from "../../map/MapHandler";
-import Rectangle from "../../utils/Rectangle";
+import OBJ_Sign        from "../../entity/object/OBJ_Sign";
+import Tile            from "../../entity/tile/Tile";
+import Renderer        from "../../gfx/Renderer";
+import MapHandler      from "../../map/MapHandler";
+import Rectangle       from "../../utils/Rectangle";
+import ForestState     from "./ForestState";
+import State           from "./State";
+import StateHandler    from "./StateHandler";
+
 import { TILE_SIZE } from "../constants";
-import ForestState from "./ForestState";
-import State from "./State";
-import StateHandler from "./StateHandler";
 
 export default class GameState extends State {
   constructor() {
@@ -85,12 +85,10 @@ export default class GameState extends State {
             let text = "forgot text";
             let sx = 0;
 
-            if (tile.dst.pos.x === 13 && tile.dst.pos.y === 3) {
+            if (tile.dst.pos.x === 13 && tile.dst.pos.y === 3)
               text = "To felis forest";
-            }
-            else if (tile.dst.pos.x === 8 && tile.dst.pos.y === 8) {
+            else if (tile.dst.pos.x === 8 && tile.dst.pos.y === 8)
               text = "ship shop";
-            }
             else if (tile.dst.pos.x === 19 && tile.dst.pos.y === 8) {
               text = "          +-+-+-arcade-+-+-+>>          under construction";
               sx = 16;
@@ -102,8 +100,7 @@ export default class GameState extends State {
               sx, 320,
               this.map,
               text.toString()
-            ))
-
+            ));
           }
           else {
             this.gameObjects.push(new Tile(
@@ -125,7 +122,6 @@ export default class GameState extends State {
     let playerRef = null;
 
     this.gameObjects.forEach(go => {
-
       if (go instanceof Player) {
         go.update(this.gameObjects, dt);
         playerRef = go;
@@ -137,14 +133,21 @@ export default class GameState extends State {
     });
 
     // Go into forest
-    if (playerRef.steppingOn(0) === 673 || playerRef.steppingOn(1) === 673) {
-      StateHandler.push(new ForestState(playerRef, "bkgd_forest_test", "bkgd_test"));
-    }
+    if (playerRef.steppingOn(0) === 673 || playerRef.steppingOn(1) === 673)
+      StateHandler.push(new ForestState(
+        playerRef,
+        "bkgd_forest_test",
+        "bkgd_test"
+      ));
   }
 
   render() {
     Renderer.setOffset(this.camera.x, this.camera.y);
-    MapHandler.drawMapLayer(this.map, new Rectangle(this.camera.x, this.camera.y, 21, 13), 0);
+    MapHandler.drawMapLayer(
+      this.map,
+      new Rectangle(this.camera.x, this.camera.y, 21, 13),
+      0
+    );
 
     this.gameObjects
       .sort((a, b) => a.dst.pos.y - b.dst.pos.y)

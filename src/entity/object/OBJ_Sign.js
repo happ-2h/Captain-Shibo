@@ -1,5 +1,6 @@
-import Entity from "../Entity";
+import Entity   from "../Entity";
 import Renderer from "../../gfx/Renderer";
+
 import { DEBUG } from "../../game/constants";
 
 export default class OBJ_Sign extends Entity {

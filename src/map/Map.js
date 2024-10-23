@@ -1,9 +1,10 @@
-import Tile from "../entity/tile/Tile";
+import Tile      from "../entity/tile/Tile";
 import Tile_Door from "../entity/tile/Tile_Door";
-import { TILE_SIZE } from "../game/constants";
-import Renderer from "../gfx/Renderer";
-import Vec2D from "../math/Vec2D";
 import Rectangle from "../utils/Rectangle";
+import Renderer  from "../gfx/Renderer";
+import Vec2D     from "../math/Vec2D";
+
+import { TILE_SIZE } from "../game/constants";
 
 export default class Map {
   #id;     // Given mapID
@@ -40,28 +41,7 @@ export default class Map {
           const tileID = this.#layers[1].data[x+y*this.#dim.x] - 1;
 
           if (tileID > 0) {
-            // TEMP format
             switch(tileID) {
-              /*case 1: // Player
-                this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
-                break;
-              case 32: // TEMP solid
-                this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
-                break;
-              case 48: // TEMP NPC
-                this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
-                break;
-              case 33: // TEMP sign
-                this.#tiles[y][x] = new Tile(x, y, tileID, true, this.#id);
-                break;
-              case  99: // TEMP arrows (enter/exit)
-              case 100:
-                this.#tiles[y][x] = new Tile(x, y, tileID, false, this.#id);
-                break;
-              case 103: // TEMP door
-                this.#tiles[y][x] = new Tile_Door(x, y, tileID, true, this.#id, ["building_test"], false);
-                break;*/
-
               // Special tiles
               case 29:  // Player (facing down)
               case 673: // Arrow up

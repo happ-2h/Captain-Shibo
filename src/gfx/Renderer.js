@@ -1,7 +1,8 @@
-import { GAME_SCALE, TILE_SIZE } from "../game/constants";
-import Vec2D from "../math/Vec2D";
-import Rectangle from "../utils/Rectangle";
+import Vec2D          from "../math/Vec2D";
+import Rectangle      from "../utils/Rectangle";
 import TextureHandler from "./TextureHandler";
+
+import { GAME_SCALE, TILE_SIZE } from "../game/constants";
 
 let instance = null;
 

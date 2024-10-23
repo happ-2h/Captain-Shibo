@@ -21,7 +21,7 @@ export default class State {
 
     this.#gameobjects = [];
     this.#camera = null;
-    this.#map = null;
+    this.#map    = null;
   }
 
   // Accessors

@@ -1,4 +1,4 @@
-import Circle from "../../../utils/Circle";
+import Circle     from "../../../utils/Circle";
 import Entity_Mob from "../Entity_Mob";
 
 export default class Ship extends Entity_Mob {

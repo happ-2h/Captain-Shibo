@@ -1,10 +1,11 @@
-import ShipController from "../../../../Controller/ship/ShipController";
-import Ship from "../Ship";
+import ShipController   from "../../../../Controller/ship/ShipController";
+import Ship             from "../Ship";
+import Renderer         from "../../../../gfx/Renderer";
+import Bullet_Fire      from "../../bullet/Bullet_Fire";
+import CollisionChecker from "../../../../math/CollisionChecker";
+
 import { clamp } from "../../../../math/utils";
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "../../../../game/constants";
-import Renderer from "../../../../gfx/Renderer";
-import Bullet_Fire from "../../bullet/Bullet_Fire";
-import CollisionChecker from "../../../../math/CollisionChecker";
 
 export default class Ship_Basic extends Ship {
   #thrustAnimDelay;
@@ -16,13 +17,13 @@ export default class Ship_Basic extends Ship {
 
     this.dst.dim.x = 16;
     this.dst.dim.y = 16;
-    this.src.pos.x = 0;
+    this.src.pos.x =  0;
     this.src.pos.y = 96;
     this.src.dim.x = 32;
     this.src.dim.y = 32;
 
-    this.accel.x = 200;
-    this.accel.y = 200;
+    this.accel.x  = 200;
+    this.accel.y  = 200;
     this.friction.x = 3;
     this.friction.y = 3;
 
