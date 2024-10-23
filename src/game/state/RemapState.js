@@ -6,6 +6,7 @@ import KeyHandler   from "../../input/KeyHandler";
 import StateHandler from "./StateHandler";
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from "../constants";
+import GamepadHandler from "../../input/GamepadHandler";
 
 export default class RemapState extends State {
   #cursor;
@@ -39,14 +40,14 @@ export default class RemapState extends State {
 
     if (!this.#remapping && this.#cursor.timer >= this.#cursor.delay) {
       // Navigation
-      if (KeyHandler.isDown(Settings.keyDown)) {
+      if (KeyHandler.isDown(Settings.keyDown) || GamepadHandler.isDpadDown()) {
         this.#cursor.timer = 0;
         this.#cursor.pos.y =
           this.#cursor.pos.y + 1 > this.#cursor.limit
             ? 1
             : this.#cursor.pos.y + 1;
       }
-      else if (KeyHandler.isDown(Settings.keyUp)) {
+      else if (KeyHandler.isDown(Settings.keyUp) || GamepadHandler.isDpadUp()) {
         this.#cursor.timer = 0;
         this.#cursor.pos.y =
           this.#cursor.pos.y - 1 < 1
@@ -55,7 +56,7 @@ export default class RemapState extends State {
       }
 
       // Action
-      if (KeyHandler.isDown(Settings.keyAction)) {
+      if (KeyHandler.isDown(Settings.keyAction) || GamepadHandler.action0) {
         this.#cursor.timer = 0;
 
         // Exit

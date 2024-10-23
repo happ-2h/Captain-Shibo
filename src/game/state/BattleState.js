@@ -14,6 +14,7 @@ import {
   WINDOW_HEIGHT,
   DEBUG
 } from "../constants";
+import GamepadHandler from "../../input/GamepadHandler";
 
 export default class BattleState extends State {
   #playerRef;
@@ -79,7 +80,7 @@ export default class BattleState extends State {
         this.#phase = "victory";
       }
 
-      if (KeyHandler.isDown(Settings.keyAction))  {
+      if (KeyHandler.isDown(Settings.keyAction) || GamepadHandler.action0)  {
         this.#phase = "attacking";
         this.#monsterRef.hurt(this.#playerRef.atk);
       }

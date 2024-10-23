@@ -8,6 +8,7 @@ import Vec2D        from "../../math/Vec2D";
 import RemapState   from "./RemapState";
 
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../constants";
+import GamepadHandler from "../../input/GamepadHandler";
 
 export default class SettingsState extends State {
   #cursor;
@@ -35,14 +36,14 @@ export default class SettingsState extends State {
 
     if (this.#cursor.timer >= this.#cursor.delay) {
       // Navigation
-      if (KeyHandler.isDown(Settings.keyDown)) {
+      if (KeyHandler.isDown(Settings.keyDown) || GamepadHandler.isDpadDown()) {
         this.#cursor.timer = 0;
         this.#cursor.pos.y =
           this.#cursor.pos.y + 1 > this.#cursor.limit
             ? 1
             : this.#cursor.pos.y + 1;
       }
-      else if (KeyHandler.isDown(Settings.keyUp)) {
+      else if (KeyHandler.isDown(Settings.keyUp) || GamepadHandler.isDpadUp()) {
         this.#cursor.timer = 0;
         this.#cursor.pos.y =
           this.#cursor.pos.y - 1 < 1
@@ -51,17 +52,17 @@ export default class SettingsState extends State {
       }
 
       // Volume adjustment
-      if (KeyHandler.isDown(Settings.keyLeft)) {
+      if (KeyHandler.isDown(Settings.keyLeft) || GamepadHandler.isDpadLeft()) {
         this.#cursor.timer = 0;
         if (this.#cursor.pos.y === 1) Settings.decMusicVol();
       }
-      else if (KeyHandler.isDown(Settings.keyRight)) {
+      else if (KeyHandler.isDown(Settings.keyRight) || GamepadHandler.isDpadRight()) {
         this.#cursor.timer = 0;
         if (this.#cursor.pos.y === 1) Settings.incMusicVol();
       }
 
       // Action
-      if (KeyHandler.isDown(Settings.keyAction)) {
+      if (KeyHandler.isDown(Settings.keyAction) || GamepadHandler.action0) {
         this.#cursor.timer = 0;
 
         if (this.#cursor.pos.y === 2) StateHandler.push(new RemapState);

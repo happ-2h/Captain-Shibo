@@ -15,6 +15,7 @@ import {
   WINDOW_HEIGHT,
   WINDOW_WIDTH
 } from "../constants";
+import GamepadHandler from "../../input/GamepadHandler";
 
 export default class TitleScreenState extends State {
   #logo;
@@ -58,7 +59,7 @@ export default class TitleScreenState extends State {
       );
 
       // Skip logo animation
-      if (KeyHandler.isDown(Settings.keyAction)) {
+      if (KeyHandler.isDown(Settings.keyAction) || GamepadHandler.action0) {
         this.#logo.pos.x = this.#destination.x;
         this.#logo.pos.y = this.#destination.y;
       }
@@ -76,14 +77,14 @@ export default class TitleScreenState extends State {
       this.#cursor.timer += dt;
 
       if (this.#cursor.timer >= this.#cursor.delay) {
-        if (KeyHandler.isDown(Settings.keyDown)) {
+        if (KeyHandler.isDown(Settings.keyDown) || GamepadHandler.isDpadDown()) {
           this.#cursor.timer = 0;
           this.#cursor.pos.y =
           this.#cursor.pos.y + 1 > 9
             ? 8
             : this.#cursor.pos.y + 1;
         }
-        else if (KeyHandler.isDown(Settings.keyUp)) {
+        else if (KeyHandler.isDown(Settings.keyUp) || GamepadHandler.isDpadUp()) {
           this.#cursor.timer = 0;
           this.#cursor.pos.y =
             this.#cursor.pos.y - 1 < 8
@@ -91,7 +92,7 @@ export default class TitleScreenState extends State {
               : this.#cursor.pos.y - 1;
         }
         // Action
-        else if (KeyHandler.isDown(Settings.keyAction)) {
+        else if (KeyHandler.isDown(Settings.keyAction) || GamepadHandler.action0) {
           this.#cursor.timer = 0;
 
           // Start
