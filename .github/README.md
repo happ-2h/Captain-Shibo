@@ -20,7 +20,9 @@
   <img alt="shmup screen" src="./screenshot3.png" width="100%">
 </div>
 
-<!-- TODO itch.io link here -->
+<a href="https://happ-2h.itch.io/captain-shibo">
+  <img alt="itchio" title="Play now" src="https://custom-icon-badges.demolab.com/badge/itch-io?color=fa5c5c&labelColor=d54d54&style=for-the-badge&logo=controller&label=Play&logoColor=white"/>
+</a>
 
 ## Running Locally
 1. Make sure you are in the root directory of this project.
