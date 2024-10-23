@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a>
-    <img src="" alt="Captain Shibo Logo">
+    <img src="./logo.png" alt="Captain Shibo Logo">
   </a>
 
   <h3>Captain Shibo</h3>
@@ -11,6 +11,13 @@
   <p align="center">
     A turn-based RPG mixed SHMUP about a space dog that crash-landed on a planet where dogs are extinct, purposefully. Can he blend in and save this planet actively in war, or does he get caught and tried for betrayal?
   </p>
+</div>
+
+<div>
+  <img alt="title screen" src="./screenshot0.png" width="100%">
+  <img alt="town map" src="./screenshot1.png" width="100%">
+  <img alt="battle screen" src="./screenshot2.png" width="100%">
+  <img alt="shmup screen" src="./screenshot3.png" width="100%">
 </div>
 
 <!-- TODO itch.io link here -->
